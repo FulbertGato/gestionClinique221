@@ -17,5 +17,6 @@ public int update(T ogj);
 public int delete(int id);
 public List<T> findAll();
 public T findById(int id);
+//public T findUserByLoginPassword(String login, String password);
 
 }

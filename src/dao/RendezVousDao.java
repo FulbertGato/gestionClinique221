@@ -5,10 +5,44 @@
  */
 package dao;
 
+import java.util.List;
+
+import entities.RendezVous;
+
 /**
  *
  * @author junio
  */
-public class RendezVousDao {
+public class RendezVousDao implements IDao<RendezVous>{
+
+    @Override
+    public int insert(RendezVous rendezVous) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int update(RendezVous rendezVous ) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int delete(int id) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public List<RendezVous> findAll() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public RendezVous findById(int id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
     
 }

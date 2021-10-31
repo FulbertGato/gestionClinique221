@@ -5,10 +5,45 @@
  */
 package dao;
 
+import java.util.List;
+
+import entities.Prestation;
+
 /**
  *
  * @author junio
  */
-public class PrestationDao {
+public class PrestationDao implements IDao<Prestation> {
+
+    @Override
+    public int insert(Prestation ogj) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int update(Prestation ogj) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int delete(int id) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public List<Prestation> findAll() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Prestation findById(int id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
     
 }
