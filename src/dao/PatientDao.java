@@ -35,8 +35,8 @@ public class PatientDao implements IDao<Patient> {
             database.getPs().setString(2, patient.getLogin());
             database.getPs().setString(3, patient.getPassword());
             database.getPs().setString(4, patient.getCode());
-            database.getPs().setString(6, patient.getAntecedants());
-            database.getPs().setInt(7, patient.getRoleId());
+            database.getPs().setString(5, patient.getAntecedants());
+            database.getPs().setInt(6, patient.getRoleId());
             database.executeUpdate(SQL_INSERT);
             ResultSet rs=database.getPs().getGeneratedKeys();
             if(rs.next()){

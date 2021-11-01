@@ -5,6 +5,8 @@
  */
 package entities;
 
+import java.util.UUID;
+
 /**
  *
  * @author junio
@@ -40,8 +42,14 @@ public class Patient extends User {
 
     public Patient(String nomComplet, String login, String password, Role role, String antecedants) {
         super(nomComplet, login, password, role);
-       // this.code = code;
+        this.code = generatedCode();
         this.setAntecedants(antecedants);
+    }
+
+    public String generatedCode() {
+        UUID uuid = UUID.randomUUID();
+        String uuidAsString = uuid.toString();
+        return uuidAsString;
     }
 
     

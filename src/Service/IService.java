@@ -57,7 +57,7 @@ public interface IService {
 
     public Role getRoleUserById(int id);
     public List<Docteur> getListDoctorByType(int id);
-    
+    public User getUserByLogin(String login);
 
 
 

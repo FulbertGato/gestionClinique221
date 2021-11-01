@@ -15,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 
 /**
  *
@@ -27,8 +29,9 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/views/v_connexion.fxml"));
         
         Scene scene = new Scene(root);
-        
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
+      //  MetaData.parent=root;
         stage.show();
     }
 

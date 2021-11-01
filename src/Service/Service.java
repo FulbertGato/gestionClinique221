@@ -188,5 +188,11 @@ public class Service implements IService{
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public User getUserByLogin(String login) {
+       
+        return daoUser.getUserByLogin(login);
+    }
     
 }
