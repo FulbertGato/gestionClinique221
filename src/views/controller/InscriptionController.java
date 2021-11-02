@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package views;
+package views.controller;
 
 import Service.Service;
 import Validator.Validation;
@@ -71,7 +71,7 @@ public class InscriptionController implements Initializable {
 
     @FXML
     private void back_to_menu(MouseEvent event) {
-      try {
+        try {
             this.txtError.getScene().getWindow().hide();
             AnchorPane root = null;
             root = FXMLLoader.load(getClass().getResource("/views/v_connexion.fxml"));
@@ -82,12 +82,13 @@ public class InscriptionController implements Initializable {
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(ConnexionController.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
+         
     }
 
     @FXML
     private void handleRegister(ActionEvent event) {
-         String login = txtEmail.getText().trim();
+        String login = txtEmail.getText().trim();
         String password = txtPassword.getText().trim();
         String nom = txtNom.getText().trim();
         String prenom = txtPrenom.getText().trim();

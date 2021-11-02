@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package views;
+package views.controller;
 
 import Service.Service;
 import com.jfoenix.controls.JFXPasswordField;
@@ -19,9 +19,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -31,6 +35,7 @@ import javafx.scene.text.Text;
 public class ConnexionController implements Initializable {
     private double xOffset=0;
    private double yOffset=0;
+   private User user;
     @FXML
     private Pane content_area;
     @FXML
@@ -71,7 +76,7 @@ public class ConnexionController implements Initializable {
         else{
             
             
-          User user = service.login(login, password);
+           user = service.login(login, password);
           
           if(user == null)
           {
@@ -80,22 +85,19 @@ public class ConnexionController implements Initializable {
           }
           else
           {
-              txtError.setText("CONNECTER");
-              txtError.setVisible(true);
-
-             /*//Cache la fénétre de connexion
-              this.txtError.getScene().getWindow().hide();
-              AnchorPane root = null;
-              
-              try {
-                  root = FXMLLoader.load(getClass().getResource("/views/v_home.fxml"));
-                  Scene scene = new Scene(root);
-                  Stage stage = new Stage();
-                  stage.setScene(scene);
-                  stage.show();
-              } catch (IOException ex) {
-                  Logger.getLogger(ConnexionController.class.getName()).log(Level.SEVERE, null, ex);
-              }*/
+            try {
+            this.txtError.getScene().getWindow().hide();
+            AnchorPane root = null;
+            root = FXMLLoader.load(getClass().getResource("/views/dashboard.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(ConnexionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
           }
         }
     }
@@ -110,5 +112,11 @@ public class ConnexionController implements Initializable {
             Logger.getLogger(ConnexionController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    public static ConnexionController getCtrl() {
+        return ctrl;
+    }
+
+    public User getUser() {
+        return user;
+    }
 }

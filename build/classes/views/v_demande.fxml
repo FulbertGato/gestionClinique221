@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane fx:id="paneDemande" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="796.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.controller.DemandeController">
+   <children>
+      <Label alignment="CENTER" layoutX="196.0" layoutY="14.0" prefHeight="70.0" prefWidth="419.0" text="FAIRE DEMANDE RENDEZ VOUS" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <JFXDatePicker fx:id="dateChoix" defaultColor="#6747cd" layoutX="36.0" layoutY="111.0" prefHeight="53.0" prefWidth="321.0" promptText="Choisissez ue date">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXDatePicker>
+      <JFXTimePicker fx:id="heureChoix" defaultColor="#6747cd" layoutX="422.0" layoutY="111.0" prefHeight="53.0" prefWidth="270.0" promptText="Choisissez l'heure">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXTimePicker>
+      <JFXComboBox fx:id="cboxChoix" focusColor="#6747cd" layoutX="36.0" layoutY="210.0" onAction="#handleChangeChoix" prefHeight="39.0" prefWidth="305.0" promptText="Faites un choix">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXComboBox>
+      <JFXComboBox fx:id="cboxTypeConsultation" focusColor="#6747cd" layoutX="422.0" layoutY="210.0" onAction="#handleChangeTypeConsultation" prefHeight="39.0" prefWidth="250.0" promptText="Choisissez type">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXComboBox>
+      <JFXTextArea fx:id="txtFieldMessage" focusColor="#6747cd" layoutX="34.0" layoutY="278.0" prefHeight="138.0" prefWidth="655.0" promptText="Message">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXTextArea>
+      <JFXButton buttonType="RAISED" layoutX="36.0" layoutY="465.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleDEmande" prefHeight="50.0" prefWidth="655.0" ripplerFill="#1e34fc" styleClass="loginBtn" stylesheets="@styles/loginAndRegister.css" text="Faire  la demande">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXComboBox fx:id="cboxTypePrestaion" focusColor="#6747cd" layoutX="422.0" layoutY="210.0" onAction="#handleChangeTypePrestation" prefHeight="39.0" prefWidth="250.0" promptText="Choisissez type">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXComboBox>
+      <Text fx:id="txtError" fill="RED" layoutX="103.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font: #ef5350;" text="Tous champs sont oblugatoire" textAlignment="CENTER" wrappingWidth="539.025390625">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font>
+      </Text>
+   </children>
+</Pane>

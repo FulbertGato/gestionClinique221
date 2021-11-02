@@ -76,4 +76,11 @@ public class User {
     public int getRoleId(){
         return this.role.getIdRole();
     }
+
+    @Override
+    public String toString() {
+        return nomComplet;
+    }
+    
+    
 }

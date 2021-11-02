@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.controller.MyRendezVousController">
+   <children>
+      <TableView fx:id="tblvRendezVous" layoutX="66.0" layoutY="51.0" prefHeight="495.0" prefWidth="635.0">
+        <columns>
+          <TableColumn fx:id="tblcService" prefWidth="156.0" resizable="false" text="SERVICE" />
+          <TableColumn fx:id="tblcType" minWidth="0.0" prefWidth="129.0" text="TYPE" />
+            <TableColumn fx:id="tblDate" prefWidth="150.0" text="DATE" />
+            <TableColumn fx:id="tblEtat" prefWidth="153.0" text="ETAT" />
+            <TableColumn fx:id="tblcPatient" prefWidth="204.0" text="PATIENT" />
+        </columns>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </TableView>
+   </children>
+</Pane>

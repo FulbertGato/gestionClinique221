@@ -23,6 +23,10 @@ import java.util.logging.Logger;
 public class PatientDao implements IDao<Patient> {
     private final String SQL_INSERT="INSERT INTO `user` (`nomComplet`, `login`, `password`, `code`,  `antecedants`, `role_id`) VALUES ( ?, ?, ?,  ?, ?, ?)";
     private final String  SQL_FIND_ALL = "SELECT * FROM user WHERE code > 0";
+    private final String  SQL_FIND_BY_EMAIL = "SELECT * FROM user WHERE email like ?";
+     private final String  SQL_FIND_BY_CODE= "SELECT * FROM user WHERE code like ?";
+    private final String SQL_SELECT_PATIENT_BY_ID =" SELECT * FROM user  WHERE id_user =? ";
+    private final RoleDao roleDao=new RoleDao();
     DataBase database= new DataBase();
 
     @Override
@@ -98,8 +102,75 @@ public class PatientDao implements IDao<Patient> {
 
     @Override
     public Patient findById(int id) {
-        // TODO Auto-generated method stub
-        return null;
+        Patient p = null;
+        try {
+            database.openConnexion();
+            database.initPrepareStatement(SQL_SELECT_PATIENT_BY_ID);
+            database.getPs().setInt(1, id);
+            ResultSet rs = database.executeSelect(SQL_SELECT_PATIENT_BY_ID);
+            if(rs.next())
+            {
+                Role role = roleDao.findById(rs.getInt("role_id"));
+                p = new Patient(
+                    rs.getInt("id_user"),
+                    rs.getString("nomComplet"),
+                    rs.getString("login"),
+                    rs.getString("password"),
+                    role,
+                    rs.getString("code"), 
+                    rs.getString("antecedants")
+                );
+               
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientDao.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            database.closeConnexion();
+        }
+        return p;
+    }
+
+    public Patient findByEmail(String email) {
+
+      
+       
+        return null;  
+    }
+
+    Patient findByCode(String code) {
+        
+        Patient p = null;
+        try {
+            database.openConnexion();
+            database.initPrepareStatement(SQL_FIND_BY_CODE);
+            database.getPs().setString(1, code);
+            ResultSet rs = database.executeSelect(SQL_FIND_BY_CODE);
+            if(rs.next())
+            {
+                Role role = roleDao.findById(rs.getInt("role_id"));
+                p = new Patient(
+                    rs.getInt("id_user"),
+                    rs.getString("nomComplet"),
+                    rs.getString("login"),
+                    rs.getString("password"),
+                    role,
+                    rs.getString("code"), 
+                    rs.getString("antecedants")
+                );
+               
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientDao.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            database.closeConnexion();
+        }
+        return p;
+        
+        
     }
 
     

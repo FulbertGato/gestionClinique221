@@ -40,5 +40,9 @@ public class Specialite {
     public Specialite(String libelle) {
         this.setLibelle(libelle);
     }
+
+    @Override
+    public String toString() {
+        return libelle;
     
-}
+    }}

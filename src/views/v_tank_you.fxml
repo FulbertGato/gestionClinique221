@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="796.0" style="-fx-background-color: #fff;" styleClass="button" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.V_tank_youController">
+   <stylesheets>
+      <URL value="@styles/dashboard.css" />
+      <URL value="@styles/loginAndRegister.css" />
+   </stylesheets>
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="187.0" layoutX="322.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/images.png" />
+         </image>
+      </ImageView>
+      <TextArea editable="false" layoutX="248.0" layoutY="345.0" prefHeight="64.0" prefWidth="341.0" style="-fx-background-color: #fff;" text="Votre demande est enregistrer">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </TextArea>
+   </children>
+</Pane>

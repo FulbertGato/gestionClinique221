@@ -5,6 +5,7 @@
  */
 package Service;
 
+import dto.RendezVousDTO;
 import java.sql.Date;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import entities.Patient;
 import entities.Prestation;
 import entities.RendezVous;
 import entities.Role;
+import entities.Specialite;
 import entities.User;
 
 /**
@@ -34,10 +36,11 @@ public interface IService {
     public int addRole(Role role);
 
 
-    public int addRendezVous(RendezVous rendezVous);
+    public int addRendezVous(RendezVousDTO rendezVous);
     public int etatRendezVousSet(int id, String action);
-    public List<RendezVous> showAllRendezVous();
-    public List<RendezVous> showAllRendezVous(String etat);
+    public List<RendezVousDTO> showAllRendezVous();
+    public List<RendezVousDTO> showAllRendezVous(String etat, String code);
+    //public List<RendezVous> showAllRendezVous(String code);
 
     public List<Consultation> showAllConsultation();
     public List<Consultation> showAllConsultation(String etat);
@@ -52,13 +55,16 @@ public interface IService {
     public void resultatImport (int id);
 
     public Patient searchPatientByCode(String code);
+    public Patient searchPatientById(int id);
+    public Patient searchPatientByEmail(String email);
     public Consultation searchConsultation(int id);
     public Prestation searchPrestationn(int id);
 
     public Role getRoleUserById(int id);
     public List<Docteur> getListDoctorByType(int id);
     public User getUserByLogin(String login);
-
+    public List<Specialite> showAllSpecialite();
+    
 
 
 

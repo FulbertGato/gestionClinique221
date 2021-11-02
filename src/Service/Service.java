@@ -15,6 +15,7 @@ import entities.Patient;
 import entities.Prestation;
 import entities.RendezVous;
 import entities.Role;
+import entities.Specialite;
 import entities.User;
 import dao.ConsultationDao;
 import dao.DocteurDao;
@@ -22,7 +23,9 @@ import dao.PatientDao;
 import dao.PrestationDao;
 import dao.RendezVousDao;
 import dao.RoleDao;
+import dao.SpecialiteDao;
 import dao.UserDao;
+import dto.RendezVousDTO;
 /**
  *
  * @author junio
@@ -35,6 +38,7 @@ public class Service implements IService{
     RendezVousDao daoRdv = new RendezVousDao();
     ConsultationDao daoConsul = new ConsultationDao();
     PrestationDao daoPresta = new PrestationDao();
+    SpecialiteDao daoSpe = new SpecialiteDao();
 
     @Override
     public User login(String email, String password) {
@@ -83,7 +87,7 @@ public class Service implements IService{
     }
 
     @Override
-    public int addRendezVous(RendezVous rendezVous) {
+    public int addRendezVous(RendezVousDTO rendezVous) {
         return daoRdv.insert(rendezVous);
     }
 
@@ -94,15 +98,15 @@ public class Service implements IService{
     }
 
     @Override
-    public List<RendezVous> showAllRendezVous() {
+    public List<RendezVousDTO> showAllRendezVous() {
         
        return daoRdv.findAll();
     }
 
     @Override
-    public List<RendezVous> showAllRendezVous(String etat) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<RendezVousDTO> showAllRendezVous(String etat, String code) {
+       
+        return daoRdv.findByEtatCode(code, etat);
     }
 
     @Override
@@ -194,5 +198,25 @@ public class Service implements IService{
        
         return daoUser.getUserByLogin(login);
     }
-    
+
+    @Override
+    public List<Specialite> showAllSpecialite() {
+       return daoSpe.findAll();
+    }
+    @Override
+    public Patient searchPatientByEmail(String email) {
+        
+        return daoPatient.findByEmail(email);
+    }
+
+    @Override
+    public Patient searchPatientById(int id) {
+        return daoPatient.findById(id);
+    }
+
+     
 }
+
+
+
+

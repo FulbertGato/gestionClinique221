@@ -5,6 +5,7 @@
  */
 package entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -13,15 +14,15 @@ import java.util.Date;
  */
 public class RendezVous {
     private int idRendezVous;
-    private Date createDateTime;
-    private Date dateRendezVous;
+    private LocalDate createDateTime;
+    private LocalDate dateRendezVous;
     private String etat;
     private Patient patient ;
     private Specialite specialite;
     private Prestation prestation;
     
  //prestation
-    public RendezVous(Date createDateTime, Date dateRendezVous, String etat, Patient patient, Prestation prestation) {
+    public RendezVous(LocalDate createDateTime, LocalDate dateRendezVous, String etat, Patient patient, Prestation prestation) {
         this.createDateTime = createDateTime;
         this.dateRendezVous = dateRendezVous;
         this.etat = etat;
@@ -29,10 +30,20 @@ public class RendezVous {
         this.prestation = prestation;
     }
 
+    public RendezVous(LocalDate createDateTime, LocalDate dateRendezVous, String etat, Patient patient, Prestation prestation,Specialite specialite) {
+        this.createDateTime = createDateTime;
+        this.dateRendezVous = dateRendezVous;
+        this.etat = etat;
+        this.patient = patient;
+        this.prestation = prestation;
+        this.specialite = specialite;
+    }
+
+
 
 
 //consulation
-    public RendezVous(Date createDateTime, Date dateRendezVous, String etat, Patient patient, Specialite specialite) {
+    public RendezVous(LocalDate createDateTime, LocalDate dateRendezVous, String etat, Patient patient, Specialite specialite) {
         this.createDateTime = createDateTime;
         this.dateRendezVous = dateRendezVous;
         this.etat = etat;
@@ -85,19 +96,19 @@ public class RendezVous {
         this.etat = etat;
     }
 
-    public Date getDateRendezVous() {
+    public LocalDate getDateRendezVous() {
         return dateRendezVous;
     }
 
-    public void setDateRendezVous(Date dateRendezVous) {
+    public void setDateRendezVous(LocalDate dateRendezVous) {
         this.dateRendezVous = dateRendezVous;
     }
 
-    public Date getCreateDateTime() {
+    public LocalDate getCreateDateTime() {
         return createDateTime;
     }
 
-    public void setCreateDateTime(Date createDateTime) {
+    public void setCreateDateTime(LocalDate createDateTime) {
         this.createDateTime = createDateTime;
     }
    

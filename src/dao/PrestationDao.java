@@ -9,12 +9,20 @@ import java.util.List;
 
 import entities.Prestation;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author junio
  */
 public class PrestationDao implements IDao<Prestation> {
-
+DataBase database= new DataBase();
+    private final String  SQL_FIND_ALL = "SELECT * FROM `prestation`";
+    private final String SQL_SELECT_PRESTATION_BY_ID =" SELECT * FROM prestation  WHERE id_prestation =? ";
     @Override
     public int insert(Prestation ogj) {
         // TODO Auto-generated method stub
@@ -35,14 +43,62 @@ public class PrestationDao implements IDao<Prestation> {
 
     @Override
     public List<Prestation> findAll() {
-        // TODO Auto-generated method stub
-        return null;
+       List<Prestation> prestations =new ArrayList<Prestation>();
+        database.openConnexion();
+        try {
+            
+            database.initPrepareStatement(SQL_FIND_ALL);
+            ResultSet rs =database.executeSelect(SQL_FIND_ALL);
+            while(rs.next()){
+                
+                Prestation p = new Prestation(
+                        rs.getInt("id_prestation"),
+                        rs.getString("libelle")
+                );
+               prestations.add(p);
+               
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Prestation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        database.closeConnexion();
+     
+         return prestations;
     }
 
     @Override
     public Prestation findById(int id) {
-        // TODO Auto-generated method stub
-        return null;
+       Prestation p = null;
+       if(id==0){
+       
+       
+       }else{
+       
+        try {
+            database.openConnexion();
+            database.initPrepareStatement(SQL_SELECT_PRESTATION_BY_ID);
+            database.getPs().setInt(1, id);
+            ResultSet rs = database.executeSelect(SQL_SELECT_PRESTATION_BY_ID);
+            if(rs.next())
+            {
+                
+                p = new Prestation(
+                    rs.getInt("id_prestation"),
+                    rs.getString("libelle")
+                );
+               
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientDao.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            database.closeConnexion();
+        }
+       }
+        return p;
     }
     
     

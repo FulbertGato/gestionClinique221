@@ -34,5 +34,10 @@ public class Prestation {
     public void setIdPrestation(int idPrestation) {
         this.idPrestation = idPrestation;
     }
+
+    @Override
+    public String toString() {
+        return libelle;
+    }
     
 }
