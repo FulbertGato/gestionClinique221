@@ -21,6 +21,7 @@ import entities.Role;
 public class RoleDao implements IDao<Role> {
     DataBase database= new DataBase();
     private final String  SQL_FIND_ALL = "SELECT * FROM role";
+    private final String SQL_SELECT_BY_ID =" SELECT * FROM role  WHERE id_role =? ";
 
     @Override
     public int insert(Role ogj) {
@@ -68,8 +69,34 @@ public class RoleDao implements IDao<Role> {
 
     @Override
     public Role findById(int id) {
-        // TODO Auto-generated method stub
-        return null;
+        Role p = null;
+       if(id==0){
+       
+       
+       }else{
+       
+        try {
+            database.openConnexion();
+            database.initPrepareStatement(SQL_SELECT_BY_ID);
+            database.getPs().setInt(1, id);
+            ResultSet rs = database.executeSelect(SQL_SELECT_BY_ID);
+            if(rs.next())
+            {
+                
+                p = new Role(
+                    rs.getInt("id_role"),
+                    rs.getString("libelle")
+                );
+               
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientDao.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            database.closeConnexion();
+        }
     }
-    
+  return p;  
+}
 }

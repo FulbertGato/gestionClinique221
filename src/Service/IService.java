@@ -34,13 +34,14 @@ public interface IService {
     public List<Patient> showAllPatients();
     public List<Role> showAllRole();
     public int addRole(Role role);
+    //public String getUserRole();
 
 
     public int addRendezVous(RendezVousDTO rendezVous);
     public int etatRendezVousSet(int id, String action);
     public List<RendezVousDTO> showAllRendezVous();
     public List<RendezVousDTO> showAllRendezVous(String etat, String code);
-    //public List<RendezVous> showAllRendezVous(String code);
+    public List<RendezVousDTO> showAllRendezVous(String etat);
 
     public List<Consultation> showAllConsultation();
     public List<Consultation> showAllConsultation(String etat);

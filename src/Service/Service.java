@@ -108,6 +108,11 @@ public class Service implements IService{
        
         return daoRdv.findByEtatCode(code, etat);
     }
+    @Override
+    public List<RendezVousDTO> showAllRendezVous(String etat) {
+       
+        return daoRdv.findByEtat(etat);
+    }
 
     @Override
     public List<Consultation> showAllConsultation() {
@@ -213,6 +218,8 @@ public class Service implements IService{
     public Patient searchPatientById(int id) {
         return daoPatient.findById(id);
     }
+
+    
 
      
 }

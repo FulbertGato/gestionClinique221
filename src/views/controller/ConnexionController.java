@@ -85,18 +85,49 @@ public class ConnexionController implements Initializable {
           }
           else
           {
-            try {
-            this.txtError.getScene().getWindow().hide();
-            AnchorPane root = null;
-            root = FXMLLoader.load(getClass().getResource("/views/dashboard.fxml"));
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(ConnexionController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+              System.out.println(user.getRole());
+              
+           switch(user.getRole().getLibelle()){
+            case "ROLE_PATIENT":
+             try {
+                    this.txtError.getScene().getWindow().hide();
+                    AnchorPane root = null;
+                    root = FXMLLoader.load(getClass().getResource("/views/dashboard.fxml"));
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.initStyle(StageStyle.UNDECORATED);
+                    stage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(ConnexionController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              break;
+            case "ROLE_DOCTEUR":
+              // code block
+              break;
+            case "ROLE_RESPONSABLE":
+              // code block
+              break;
+            case "ROLE_SECRETAIRE":
+              try {
+                    this.txtError.getScene().getWindow().hide();
+                    AnchorPane root = null;
+                    root = FXMLLoader.load(getClass().getResource("/views/v_dashboardSecretaire.fxml"));
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.initStyle(StageStyle.UNDECORATED);
+                    stage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(ConnexionController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              break;
+            
+            default:
+              // code block
+            }
+              
+            
          
           }
         }

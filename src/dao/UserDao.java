@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 public class UserDao implements IDao<User> {
     private final DataBase database= new DataBase();
     private final RoleDao roleDao=new RoleDao();
-    private final String  SQL_LOGIN = "SELECT * FROM user WHERE login LIKE  ? AND password LIKE ?";
+    private final String  SQL_LOGIN = "SELECT * FROM user u, role r WHERE u.login LIKE  ? AND u.password LIKE ? AND u.role_id = r.id_role";
     private final String  SQL_EMAIL = "SELECT * FROM user WHERE login LIKE  ?";
     private final String  SQL_FIND_ALL = "SELECT * FROM user";
     private final String SQL_INSERT="INSERT INTO `user` (`nomComplet`, `login`, `password` , `role_id`) VALUES ( ?, ?, ?,?)";
