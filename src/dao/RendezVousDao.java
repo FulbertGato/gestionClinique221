@@ -50,7 +50,7 @@ public class RendezVousDao implements IDao<RendezVousDTO>{
             database.getPs().setInt(5, rendezVous.getSpecialite().getIdSpecialite());
             database.getPs().setInt(6, 0);
             }else{
-                database.getPs().setInt(5, 0);
+            database.getPs().setInt(5, 0);
             database.getPs().setInt(6, rendezVous.getPrestation().getIdPrestation());
             }
             database.executeUpdate(SQL_INSERT);
