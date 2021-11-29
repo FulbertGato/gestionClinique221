@@ -30,6 +30,7 @@ public interface IService {
     public List<User> showAllUsers();
     public int addUser(User user);
     public List<Docteur> showAllDocteurs();
+    public List<Docteur> searchDoctorBySpecialiter(String consultOrPrestaType);
     public int addDoctor(Docteur docteur);
     public List<Patient> showAllPatients();
     public List<Role> showAllRole();
@@ -37,11 +38,16 @@ public interface IService {
 
 
     public int addRendezVous(RendezVousDTO rendezVous);
+    //public void cancelRendezVous(int id);
     public int etatRendezVousSet(int id, String action);
     public List<RendezVousDTO> showAllRendezVous();
     public List<RendezVousDTO> showAllRendezVous(String etat, String code);
-    //public List<RendezVous> showAllRendezVous(String code);
+    public List<RendezVousDTO> showAllRendezVous(String etat);
+    public RendezVousDTO showRendezVousById(int id);
 
+    
+    
+    public int addConsultation(Consultation consultation);
     public List<Consultation> showAllConsultation();
     public List<Consultation> showAllConsultation(String etat);
     public List<Consultation> showAllConsultation(String etat, Date date);
@@ -52,6 +58,7 @@ public interface IService {
     public List<Prestation> showAllPrestation(String etat);
     public List<Prestation> showAllPrestation(String etat, Date date);
     public DetailPrestation detail(int id);
+    public int addDetailPrestation(DetailPrestation pres);
     public void resultatImport (int id);
 
     public Patient searchPatientByCode(String code);

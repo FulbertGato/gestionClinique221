@@ -15,7 +15,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -31,7 +30,7 @@ import utils.ViewService;
  *
  * @author junio
  */
-public class DashboardController implements Initializable {
+public class DashboardSecretaireController implements Initializable, IController {
 
     @FXML
     private VBox navBar;
@@ -42,12 +41,9 @@ public class DashboardController implements Initializable {
     @FXML
     private Button btnCustomers;
     @FXML
-    private Pane content;
-    private static DashboardController ctrl;
-    
+    private Pane contentSecretaire;
     private User user = ConnexionController.getCtrl().getUser();
-    
-    private ViewService vie = new ViewService();
+    private ViewService view = new ViewService();
 
     /**
      * Initializes the controller class.
@@ -62,41 +58,42 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    private void handleDemande(ActionEvent event) throws IOException {
+    private void handleDemandeEnCours(ActionEvent event) {
         
-        vie.loadView("v_demande", content);
         
-      /*  try { 
-            loadView("v_demande");
-        } catch (IOException ex) {
-            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-    }
-
-    @FXML
-    private void HandleRendezVousEnCours(ActionEvent event) {
+        
+        
         try {
-            vie.loadView("v_MyRendezVous", content);
+            view.loadView("v_AllRendezVous", contentSecretaire);
         } catch (IOException ex) {
-            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DashboardSecretaireController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @FXML
-    private void HandlePrestations(ActionEvent event) {
+    private void HandleRendezVousEnValidez(ActionEvent event) {
+        try {
+            view.loadView("v_AllRendezVousValider", contentSecretaire);
+        } catch (IOException ex) {
+            Logger.getLogger(DashboardSecretaireController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
-    private void HandleConsultations(ActionEvent event) {
+    private void HandleRendezVousAnnule(ActionEvent event) {
+        try {
+            view.loadView("v_rdvAnnuler", contentSecretaire);
+        } catch (IOException ex) {
+            Logger.getLogger(DashboardSecretaireController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
-    private void HandleDossier(ActionEvent event) {
+    private void HandleDocteursPrestateurs(ActionEvent event) {
     }
 
     @FXML
     private void handleSignOut(ActionEvent event) {
-        
         try {
             this.txtNomComplet.getScene().getWindow().hide();
             AnchorPane root = null;
@@ -110,14 +107,16 @@ public class DashboardController implements Initializable {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     
-     
-     public static DashboardController getCtrl() {
-        return ctrl;
+
+    @Override
+    public void clearFields() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-   
-
+    @Override
+    public void disableFields(boolean param) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     
 }

@@ -157,7 +157,6 @@ public class DemandeController implements Initializable {
                 rdv.setEtat("EN COURS");
                 rdv.setPatient(patient);
                 rdv.setPrestation(presta);
-                System.out.println("prestation");
                 service.addRendezVous(rdv);
                 tankView();
             
@@ -180,6 +179,7 @@ public class DemandeController implements Initializable {
     private void handleChangeTypeConsultation(ActionEvent event) {
         // cboxTypePrestaion=null;
        ///  cboxChoix.disabledProperty();
+       cboxTypePrestaion.getSelectionModel().clearSelection();
          consulChoix = cboxTypeConsultation.getSelectionModel().getSelectedItem();
     }
 
@@ -187,6 +187,7 @@ public class DemandeController implements Initializable {
     private void handleChangeTypePrestation(ActionEvent event) {
        // cboxTypeConsultation=null;
         //cboxChoix
+        cboxTypeConsultation.getSelectionModel().clearSelection();
         prestaChoix = cboxTypePrestaion.getSelectionModel().getSelectedItem();
     }
     

@@ -16,6 +16,9 @@ public class Role {
     public Role() {
         
     } 
+     public Role(int id) {
+         this.setIdRole(id);
+    } 
     public Role(String libelle) {
         this.setLibelle(libelle);
     } 

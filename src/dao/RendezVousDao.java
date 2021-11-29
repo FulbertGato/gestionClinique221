@@ -28,6 +28,9 @@ public class RendezVousDao implements IDao<RendezVousDTO>{
     private final String SQL_INSERT="INSERT INTO `rendez_vous` (`createAt`, `date`, `etat`, `patient_code`,  `specialite_id`, `prestation_id`) VALUES ( ?, ?, ?,  ?, ?, ?)";
     private final String  SQL_FIND_ALL = "SELECT * FROM `rendez_vous`";
     private final String  SQL_FIND_ALL_BY_ETAT_CODE = "SELECT * FROM `rendez_vous` WHERE `patient_code` LIKE  ? AND `etat` LIKE ?  ";
+    private final String  SQL_FIND_ALL_BY_ETAT= "SELECT * FROM `rendez_vous` WHERE  `etat` LIKE ?  ";
+     private final String  SQL_FIND_RDV_BY_ID= "SELECT * FROM `rendez_vous` WHERE  `id` = ? "; 
+     private final String  SQL_UPDATE_ETAT= "UPDATE `rendez_vous` SET `etat` = ? WHERE `rendez_vous`.`id` = ?";
     private final PatientDao patientDao = new PatientDao();
     private final SpecialiteDao speDao = new SpecialiteDao();
     private final PrestationDao presDao = new PrestationDao();
@@ -50,7 +53,7 @@ public class RendezVousDao implements IDao<RendezVousDTO>{
             database.getPs().setInt(5, rendezVous.getSpecialite().getIdSpecialite());
             database.getPs().setInt(6, 0);
             }else{
-            database.getPs().setInt(5, 0);
+                database.getPs().setInt(5, 0);
             database.getPs().setInt(6, rendezVous.getPrestation().getIdPrestation());
             }
             database.executeUpdate(SQL_INSERT);
@@ -119,8 +122,39 @@ public class RendezVousDao implements IDao<RendezVousDTO>{
 
     @Override
     public RendezVousDTO findById(int id) {
-        // TODO Auto-generated method stub
-        return null;
+        RendezVousDTO rdv= null;
+         try {
+            database.openConnexion();
+            database.initPrepareStatement(SQL_FIND_RDV_BY_ID);
+            database.getPs().setInt(1, id);
+            ResultSet rs = database.executeSelect(SQL_FIND_RDV_BY_ID);
+            if(rs.next())
+            {
+                //rdv = new RendezVousDTO;
+                LocalDate creaD = stl( rs.getString("createAt"));
+                LocalDate date = stl( rs.getString("date"));
+                Patient pat = patientDao.findByCode(rs.getString("patient_code"));
+                Specialite sp = speDao.findById(rs.getInt("specialite_id"));
+                Prestation pres = presDao.findById(rs.getInt("prestation_id"));
+                rdv = new RendezVousDTO();
+                rdv.setIdRendezVous(rs.getInt("id"));
+                rdv.setCreateDateTime(creaD);
+                 rdv.setDateRendezVous(date);
+                 rdv.setPatient(pat);
+                 rdv.setPrestation(pres);
+                 rdv.setSpecialite(sp);
+                 rdv.setEtat(rs.getString("etat"));
+                 rdv.setConsultOrPresta();
+                 rdv.setConsultOrPrestaType();
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(RendezVousDao.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            database.closeConnexion();
+        }
+        return rdv;
     }
     
     
@@ -177,6 +211,67 @@ public class RendezVousDao implements IDao<RendezVousDTO>{
 
      LocalDate conv = LocalDate.parse(date, formatter);
        return conv;
+    }
+
+    public List<RendezVousDTO> findByEtat(String etat) {
+        List<RendezVousDTO> rdvList =new ArrayList();
+        try {
+            database.openConnexion();
+            database.initPrepareStatement(SQL_FIND_ALL_BY_ETAT);
+            
+            database.getPs().setString(1,etat);
+            
+            ResultSet rs =database.executeSelect(SQL_FIND_ALL_BY_ETAT);
+            while(rs.next()){
+                try {
+                  LocalDate creaD = stl( rs.getString("createAt"));
+                  LocalDate date = stl( rs.getString("date"));
+                  Patient pat = patientDao.findByCode(rs.getString("patient_code"));
+                  Specialite sp = speDao.findById(rs.getInt("specialite_id"));
+                  Prestation pres = presDao.findById(rs.getInt("prestation_id"));
+                  RendezVousDTO rdv = new RendezVousDTO();
+                 rdv.setIdRendezVous(rs.getInt("id"));
+                 rdv.setCreateDateTime(creaD);
+                 rdv.setDateRendezVous(date);
+                 rdv.setPatient(pat);
+                 rdv.setPrestation(pres);
+                 rdv.setSpecialite(sp);
+                 rdv.setEtat(rs.getString("etat"));
+                 rdv.setConsultOrPresta();
+                 rdv.setConsultOrPrestaType();
+                rdvList.add(rdv);
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        database.closeConnexion();
+        System.out.println(rdvList);
+        
+        
+        
+       return rdvList;
+    }
+
+    public int setEtatRendezVous(int id, String action) {
+        int lastUpdateId=0;
+        try {
+            
+            database.openConnexion();
+            database.initPrepareStatement(SQL_UPDATE_ETAT);
+            database.getPs().setString(1, action);
+            database.getPs().setInt(2, id);
+            database.executeUpdate(SQL_UPDATE_ETAT);
+            lastUpdateId=1;
+  
+        } catch (SQLException ex) {
+            lastUpdateId=0;
+            Logger.getLogger(RendezVousDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(lastUpdateId);
+        return lastUpdateId;
     }
     
     

@@ -18,6 +18,7 @@ import entities.Role;
 import entities.Specialite;
 import entities.User;
 import dao.ConsultationDao;
+import dao.DetailPrestationDao;
 import dao.DocteurDao;
 import dao.PatientDao;
 import dao.PrestationDao;
@@ -39,6 +40,7 @@ public class Service implements IService{
     ConsultationDao daoConsul = new ConsultationDao();
     PrestationDao daoPresta = new PrestationDao();
     SpecialiteDao daoSpe = new SpecialiteDao();
+    DetailPrestationDao daoPrestaDetail = new DetailPrestationDao ();
 
     @Override
     public User login(String email, String password) {
@@ -70,6 +72,12 @@ public class Service implements IService{
         
          return daoDocteur.insert(docteur);
     }
+    
+    @Override
+    public List<Docteur> searchDoctorBySpecialiter(String consultOrPrestaType) {
+        
+        return daoDocteur.findBySpecialite(consultOrPrestaType);
+    }
 
     @Override
     public List<Patient> showAllPatients() {
@@ -93,8 +101,8 @@ public class Service implements IService{
 
     @Override
     public int etatRendezVousSet(int id, String action) {
-        // TODO Auto-generated method stub
-        return 0;
+        
+        return daoRdv.setEtatRendezVous(id,action);
     }
 
     @Override
@@ -108,7 +116,19 @@ public class Service implements IService{
        
         return daoRdv.findByEtatCode(code, etat);
     }
+    
+    @Override
+    public List<RendezVousDTO> showAllRendezVous(String etat) {
+       
+        return daoRdv.findByEtat(etat);
+    }
 
+    
+    
+       @Override
+    public int addConsultation(Consultation consultation) {
+        return daoConsul.insert(consultation);
+    }
     @Override
     public List<Consultation> showAllConsultation() {
         
@@ -132,6 +152,12 @@ public class Service implements IService{
         // TODO Auto-generated method stub
         return 0;
     }
+    
+    
+     @Override
+    public int addDetailPrestation(DetailPrestation pres) {
+       return daoPrestaDetail.insert(pres);
+    }
 
     @Override
     public List<Prestation> showAllPrestation() {
@@ -149,6 +175,10 @@ public class Service implements IService{
     public List<Prestation> showAllPrestation(String etat, Date date) {
         // TODO Auto-generated method stub
         return null;
+    }
+    @Override
+     public RendezVousDTO showRendezVousById(int id) {
+       return daoRdv.findById(id);
     }
 
     @Override
@@ -213,6 +243,15 @@ public class Service implements IService{
     public Patient searchPatientById(int id) {
         return daoPatient.findById(id);
     }
+
+ 
+
+   
+
+    
+
+
+   
 
      
 }

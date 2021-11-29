@@ -25,7 +25,7 @@ public class DocteurDao implements IDao<Docteur>{
     
     private final String  SQL_FIND_ALL = "SELECT * FROM user WHERE specialite_id > 0";
     private final String SQL_INSERT="INSERT INTO `user` (`nomComplet`, `login`, `password` , `role_id`,`specialite_id`) VALUES ( ?, ?, ?,?,?)";
-
+    private final String SQL_FIND_BY_SP ="SELECT * FROM user u , specialite sp WHERE u.specialite_id = sp.id_specialite AND sp.libelle_specialite LIKE ?";
     @Override
     public int insert(Docteur docteur) {
         int lastInsertId=0;
@@ -74,7 +74,7 @@ public class DocteurDao implements IDao<Docteur>{
             while(rs.next()){
                 try {
                     
-                Role role = new Role(rs.getInt("role_id"),rs.getString("libelle"));
+                Role role = new Role(rs.getInt("role_id"));
                 Specialite specialite = new Specialite(rs.getInt("specialite_id"),rs.getString("libelle_specialite"));
                 Docteur docteur = new Docteur(
                 rs.getInt("id_user"),
@@ -99,6 +99,42 @@ public class DocteurDao implements IDao<Docteur>{
     public Docteur findById(int id) {
         // TODO Auto-generated method stub
         return null;
+    }
+    
+    public List<Docteur> findBySpecialite(String consultOrPrestaType){
+         List<Docteur> docteurs=new ArrayList<Docteur>();
+        
+    
+    try {
+            database.openConnexion();
+            database.initPrepareStatement(SQL_FIND_BY_SP);
+            database.getPs().setString(1, consultOrPrestaType );
+            ResultSet rs =database.executeSelect(SQL_FIND_BY_SP);
+            while(rs.next()){
+                try {
+                    
+                Role role = new Role(rs.getInt("role_id"));
+                
+                Specialite specialite = new Specialite(rs.getInt("specialite_id"),rs.getString("libelle_specialite"));
+                Docteur docteur = new Docteur(
+                rs.getInt("id_user"),
+                rs.getString("nomComplet"),
+                rs.getString("login"),
+                rs.getString("password"), 
+                role,
+                specialite);
+                docteurs.add(docteur);
+                } catch (SQLException ex) {
+                    Logger.getLogger(DocteurDao.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        database.closeConnexion();
+        System.out.print(docteurs);
+        return docteurs;
+    
     }
     
 }

@@ -16,32 +16,38 @@ public class DetailPrestation {
     private String resultats;
     private String status;
     private Patient patient;
-    private User responsable;
+    private Docteur docteur;
     
-    public DetailPrestation(Prestation prestation, String resultats, String status, Patient patient, User responsable) {
+    public DetailPrestation(Prestation prestation, String resultats, String status, Patient patient, Docteur responsable) {
         this.prestation = prestation;
         this.resultats = resultats;
         this.status = status;
         this.patient = patient;
-        this.responsable = responsable;
+        this.docteur = responsable;
+    }
+    public DetailPrestation(Prestation prestation, Patient patient, Docteur responsable,String status) {
+        this.prestation = prestation;
+        this.status = status;
+        this.patient = patient;
+        this.docteur = responsable;
     }
     public DetailPrestation(int idDetails, Prestation prestation, String resultats, String status, Patient patient,
-            User responsable) {
+           Docteur responsable) {
         this.idDetails = idDetails;
         this.prestation = prestation;
         this.resultats = resultats;
         this.status = status;
         this.patient = patient;
-        this.responsable = responsable;
+        this.docteur = responsable;
     }
     public int getIdDetails() {
         return idDetails;
     }
     public User getResponsable() {
-        return responsable;
+        return docteur;
     }
-    public void setResponsable(User responsable) {
-        this.responsable = responsable;
+    public void setResponsable(Docteur responsable) {
+        this.docteur = responsable;
     }
     public Patient getPatient() {
         return patient;

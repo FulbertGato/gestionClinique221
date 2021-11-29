@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="796.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.controller.AllRendezVousController">
+   <children>
+      <TableView fx:id="tblvRendezVous" layoutX="33.0" layoutY="222.0" onMouseClicked="#choixRendezVous" prefHeight="353.0" prefWidth="711.0">
+         <columns>
+            <TableColumn fx:id="tblcService" prefWidth="219.0" resizable="false" text="SERVICE" />
+            <TableColumn fx:id="tblcType" minWidth="0.0" prefWidth="157.0" text="TYPE" />
+            <TableColumn fx:id="tblDate" prefWidth="115.0" text="DATE" />
+            <TableColumn fx:id="tblEtat" prefWidth="122.0" text="ETAT" />
+            <TableColumn fx:id="tblcID" prefWidth="97.0" text="ID" />
+         </columns>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </TableView>
+      <AnchorPane layoutX="48.0" layoutY="46.0" prefHeight="176.0" prefWidth="700.0">
+         <children>
+            <TextField fx:id="txtfService" layoutX="15.0" layoutY="63.0" prefHeight="35.0" prefWidth="188.0" promptText="service" />
+            <TextField fx:id="txtfIdentifiant" layoutX="15.0" layoutY="11.0" prefHeight="35.0" prefWidth="187.0" promptText="Identifiant" />
+            <FontAwesomeIcon fill="#22b4e4" glyphName="SEARCH" layoutX="223.0" layoutY="33.0" onMouseClicked="#handleSeachRendezVousById" size="2em" text="" wrappingWidth="46.285715103149414" />
+            <Button fx:id="btnAnnuler" layoutX="363.0" layoutY="140.0" mnemonicParsing="false" onAction="#handleCancelRdv" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: red;" text="Annuler" textFill="WHITE" />
+            <Button fx:id="btnValider" layoutX="520.0" layoutY="140.0" mnemonicParsing="false" onAction="#handleValideRdv" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: green;" text="Valider" />
+            <ComboBox fx:id="cboRealisatorConsultation" layoutX="363.0" layoutY="81.0" prefHeight="35.0" prefWidth="244.0" promptText="Realisator" />
+            <TextField fx:id="txtfType" layoutX="363.0" layoutY="6.0" prefHeight="35.0" prefWidth="244.0" promptText="Types" />
+            <Button fx:id="btnVider" layoutX="8.0" layoutY="140.0" mnemonicParsing="false" onAction="#handleReset" prefHeight="25.0" prefWidth="187.0" style="-fx-background-color: black;" text="Vider" textFill="WHITE" />
+            <ComboBox fx:id="cboRealisatorPrestation" layoutX="363.0" layoutY="81.0" prefHeight="35.0" prefWidth="244.0" promptText="Realisator" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="54.0" layoutY="70.0" text="Label" textFill="#b92b2b" visible="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="54.0" layoutY="144.0" text="Label" textFill="#b92b2b" visible="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="353.0" layoutY="70.0" text="Label" textFill="#b92b2b" visible="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

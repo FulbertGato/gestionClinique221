@@ -14,7 +14,7 @@ import java.util.UUID;
 public class Patient extends User {
 
    
-    private String code ;
+    private String code;
     private String antecedants;
 
     public Patient(int idUser, String nomComplet, String login, String password, Role role, String code,

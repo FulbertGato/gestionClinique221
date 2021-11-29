@@ -5,6 +5,8 @@
  */
 package entities;
 
+import dto.RendezVousDTO;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -15,13 +17,29 @@ public class Consultation {
     private int idConsultation;
     private String status;
     private String constante;
-    private Date startDate;
+    private LocalDate startDate;
     private Patient patient;
     private Docteur docteur;
+    private Specialite specialite;
     private Ordonnance ordonnance;
     private Prestation prestation;
+     private RendezVousDTO rdv;
     
-    public Consultation(String status, String constante, Date startDate, Prestation prestation) {
+    
+    
+    public Consultation(Specialite specialite, Patient patient ,  Docteur docteur,LocalDate startDate,RendezVousDTO rdv,String status) {
+        
+        this.status = status;
+        this.constante = constante;
+        this.startDate = startDate;
+        this.prestation = prestation;
+        this.docteur = docteur;
+        this.specialite=specialite;
+        this.rdv = rdv;
+        
+    }
+    
+    public Consultation(String status, String constante, LocalDate startDate, Prestation prestation) {
         this.status = status;
         this.constante = constante;
         this.startDate = startDate;
@@ -30,14 +48,14 @@ public class Consultation {
 
     
 
-    public Consultation(String status, String constante, Date startDate, Ordonnance ordonnance) {
+    public Consultation(String status, String constante, LocalDate startDate, Ordonnance ordonnance) {
         this.status = status;
         this.constante = constante;
         this.startDate = startDate;
         this.ordonnance = ordonnance;
     }
 
-    public Consultation(String status, String constante, Date startDate, Patient patient, Docteur docteur) {
+    public Consultation(String status, String constante, LocalDate startDate, Patient patient, Docteur docteur) {
         this.status = status;
         this.constante = constante;
         this.startDate = startDate;
@@ -76,10 +94,10 @@ public class Consultation {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
     public String getStatus() {
@@ -97,5 +115,24 @@ public class Consultation {
     public void setIdConsultation(int idConsultation) {
         this.idConsultation = idConsultation;
     }
+
+    public Specialite getSpecialite() {
+        return specialite;
+    }
+
+    public void setSpecialite(Specialite specialite) {
+        this.specialite = specialite;
+    }
+
+    public RendezVousDTO getRdv() {
+        return rdv;
+    }
+
+    public void setRdv(RendezVousDTO rdv) {
+        this.rdv = rdv;
+    }
+    
+    
+    
     
 }
