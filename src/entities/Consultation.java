@@ -23,7 +23,7 @@ public class Consultation {
     private Specialite specialite;
     private Ordonnance ordonnance;
     private Prestation prestation;
-     private RendezVousDTO rdv;
+    private RendezVousDTO rdv;
     
     
     
@@ -36,6 +36,19 @@ public class Consultation {
         this.docteur = docteur;
         this.specialite=specialite;
         this.rdv = rdv;
+        
+    }
+    
+    public Consultation(int id,Specialite specialite, Patient patient ,  Docteur docteur,LocalDate startDate,RendezVousDTO rdv,String status) {
+        this.idConsultation=id;
+        this.status = status;
+        this.constante = constante;
+        this.startDate = startDate;
+        this.prestation = prestation;
+        this.docteur = docteur;
+        this.specialite=specialite;
+        this.rdv = rdv;
+        this.patient = patient;
         
     }
     
@@ -71,7 +84,7 @@ public class Consultation {
         return idConsultation;
     }
     public Prestation getPrestation() {
-        return prestation;
+        return this.prestation;
     }
     public void setPrestation(Prestation prestation) {
         this.prestation = prestation;
@@ -83,13 +96,13 @@ public class Consultation {
         this.ordonnance = ordonnance;
     }
     public Docteur getDocteur() {
-        return docteur;
+        return this.docteur;
     }
     public void setDocteur(Docteur docteur) {
         this.docteur = docteur;
     }
     public Patient getPatient() {
-        return patient;
+        return this.patient;
     }
     public void setPatient(Patient patient) {
         this.patient = patient;

@@ -78,6 +78,17 @@ public class Service implements IService{
         
         return daoDocteur.findBySpecialite(consultOrPrestaType);
     }
+    
+    @Override
+    public int nombrerdvDoc(int id) {
+        return daoDocteur.nbreRdv(id);
+    }
+    
+    @Override
+    public int nombrerdvDoc(int idUser, String d) {
+        return daoDocteur.nbreRdv(idUser,d);
+        
+    }
 
     @Override
     public List<Patient> showAllPatients() {
@@ -122,6 +133,8 @@ public class Service implements IService{
        
         return daoRdv.findByEtat(etat);
     }
+     
+
 
     
     
@@ -142,9 +155,8 @@ public class Service implements IService{
     }
 
     @Override
-    public List<Consultation> showAllConsultation(String etat, Date date) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<Consultation> showAllConsultation(String etat, String date,int id) {
+         return daoConsul.findByEtatDate(etat,date,id);
     }
 
     @Override
@@ -243,6 +255,13 @@ public class Service implements IService{
     public Patient searchPatientById(int id) {
         return daoPatient.findById(id);
     }
+
+    @Override
+    public Docteur docteurById(int id) {
+        return daoDocteur.findById(id);
+    }
+
+    
 
  
 

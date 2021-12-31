@@ -35,7 +35,9 @@ public interface IService {
     public List<Patient> showAllPatients();
     public List<Role> showAllRole();
     public int addRole(Role role);
-
+    public int nombrerdvDoc(int id);
+    public int nombrerdvDoc(int idUser, String d);
+    public Docteur docteurById(int id);
 
     public int addRendezVous(RendezVousDTO rendezVous);
     //public void cancelRendezVous(int id);
@@ -44,13 +46,14 @@ public interface IService {
     public List<RendezVousDTO> showAllRendezVous(String etat, String code);
     public List<RendezVousDTO> showAllRendezVous(String etat);
     public RendezVousDTO showRendezVousById(int id);
-
+    
     
     
     public int addConsultation(Consultation consultation);
     public List<Consultation> showAllConsultation();
     public List<Consultation> showAllConsultation(String etat);
-    public List<Consultation> showAllConsultation(String etat, Date date);
+    public List<Consultation> showAllConsultation(String etat, String date,int id);
+
     public int etatConsultation(int id, String action);
     
 

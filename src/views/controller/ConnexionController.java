@@ -5,6 +5,8 @@
  */
 package views.controller;
 
+import MAIN.Main;
+
 import Service.Service;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -47,14 +49,17 @@ public class ConnexionController implements Initializable {
     private final Service service = new Service();
     
     private static ConnexionController ctrl;
+    
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         txtError.setVisible(false);
-         ctrl = this;
+       
+            txtError.setVisible(false);
+            ctrl = this;
+        
     }    
 
     @FXML
@@ -103,7 +108,18 @@ public class ConnexionController implements Initializable {
                 }
               break;
             case "ROLE_DOCTEUR":
-              // code block
+              try {
+                    this.txtError.getScene().getWindow().hide();
+                    AnchorPane root = null;
+                    root = FXMLLoader.load(getClass().getResource("/views/v_docteurDashboard.fxml"));
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.initStyle(StageStyle.UNDECORATED);
+                    stage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(ConnexionController.class.getName()).log(Level.SEVERE, null, ex);
+                }
               break;
             case "ROLE_RESPONSABLE":
               // code block

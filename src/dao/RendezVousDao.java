@@ -98,15 +98,15 @@ public class RendezVousDao implements IDao<RendezVousDTO>{
                   Specialite sp = speDao.findById(rs.getInt("specialite_id"));
                   Prestation pres = presDao.findById(rs.getInt("prestation_id"));
                   RendezVousDTO rdv = new RendezVousDTO();
-                 rdv.setIdRendezVous(rs.getInt("id"));
-                 rdv.setCreateDateTime(creaD);
-                 rdv.setDateRendezVous(date);
-                 rdv.setPatient(pat);
-                 rdv.setPrestation(pres);
-                 rdv.setSpecialite(sp);
-                 rdv.setEtat(rs.getString("etat"));
-                 rdv.setConsultOrPresta();
-                 rdv.setConsultOrPrestaType();
+                  rdv.setIdRendezVous(rs.getInt("id"));
+                  rdv.setCreateDateTime(creaD);
+                  rdv.setDateRendezVous(date);
+                  rdv.setPatient(pat);
+                  rdv.setPrestation(pres);
+                  rdv.setSpecialite(sp);
+                  rdv.setEtat(rs.getString("etat"));
+                  rdv.setConsultOrPresta();
+                  rdv.setConsultOrPrestaType();
                 rdvList.add(rdv);
                 } catch (SQLException ex) {
                     Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);

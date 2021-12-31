@@ -130,6 +130,7 @@ public class AllRendezVousController implements Initializable, IController {
                       }
 
                  } 
+                    loadTableView();
              } 
     
     }
@@ -137,6 +138,7 @@ public class AllRendezVousController implements Initializable, IController {
     @FXML
     private void handleCancelRdv(ActionEvent event) {
         int id = service.etatRendezVousSet(parseInt(txtfIdentifiant.getText()), "annuler");
+        loadTableView();
     }
 
     @FXML
@@ -191,12 +193,16 @@ public class AllRendezVousController implements Initializable, IController {
         
         
         }
-       
+       loadTableView();
         
     }
 
     @FXML
     private void handleReset(ActionEvent event) {
+        clearFields();
+        txtfIdentifiant.clear();
+        disableFields(true);
+         txtfIdentifiant.setDisable(false);
         
         
     }
@@ -235,6 +241,9 @@ public class AllRendezVousController implements Initializable, IController {
 
     @FXML
     private void choixRendezVous(MouseEvent event) {
+        RendezVousDTO rdvSet = tblvRendezVous.getSelectionModel().getSelectedItem();
+        System.out.print(rdvSet);
+        
     }
     
 }

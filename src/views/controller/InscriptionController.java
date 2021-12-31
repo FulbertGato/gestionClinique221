@@ -116,7 +116,7 @@ public class InscriptionController implements Initializable {
         else{
             String nomComplet = nom+" "+prenom;
             Role role = new Role(1,"ROLE_PATIENT");
-            Patient patient = new Patient(nomComplet,login,password,role,antecedant);
+            Patient patient = new Patient(nomComplet,login,password,role,antecedant,telephone);
             int id = service.addPatient(patient);
           
            if(id>0){

@@ -26,6 +26,11 @@ public class DocteurDao implements IDao<Docteur>{
     private final String  SQL_FIND_ALL = "SELECT * FROM user WHERE specialite_id > 0";
     private final String SQL_INSERT="INSERT INTO `user` (`nomComplet`, `login`, `password` , `role_id`,`specialite_id`) VALUES ( ?, ?, ?,?,?)";
     private final String SQL_FIND_BY_SP ="SELECT * FROM user u , specialite sp WHERE u.specialite_id = sp.id_specialite AND sp.libelle_specialite LIKE ?";
+    private final String  SQL_FIND_NBRE_CONS = "SELECT * FROM consultation WHERE medecin_id = ?";
+    private final String SQL_FIND_NBRE_CONS_DATE = "SELECT * FROM consultation WHERE medecin_id = ? AND date LIKE ?";
+    private final String SQL_SELECT_DOCTEUR_BY_ID =" SELECT * FROM user  WHERE id_user =? ";
+    private final RoleDao roleDao=new RoleDao();
+    private final SpecialiteDao spDao=new SpecialiteDao();
     @Override
     public int insert(Docteur docteur) {
         int lastInsertId=0;
@@ -97,8 +102,35 @@ public class DocteurDao implements IDao<Docteur>{
 
     @Override
     public Docteur findById(int id) {
-        // TODO Auto-generated method stub
-        return null;
+        Docteur d = null;
+        try {
+            database.openConnexion();
+            database.initPrepareStatement(SQL_SELECT_DOCTEUR_BY_ID);
+            database.getPs().setInt(1, id);
+            ResultSet rs = database.executeSelect(SQL_SELECT_DOCTEUR_BY_ID);
+            if(rs.next())
+            {
+                Role role = roleDao.findById(rs.getInt("role_id"));
+                Specialite sp= spDao.findById(rs.getInt("specialite_id"));
+                d = new Docteur(
+                    rs.getInt("id_user"),
+                    rs.getString("nomComplet"),
+                    rs.getString("login"),
+                    rs.getString("password"),
+                    role,
+                    sp
+                    
+                );
+               
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientDao.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            database.closeConnexion();
+        }
+        return d;
     }
     
     public List<Docteur> findBySpecialite(String consultOrPrestaType){
@@ -136,5 +168,45 @@ public class DocteurDao implements IDao<Docteur>{
         return docteurs;
     
     }
+    
+    public int nbreRdv(int id) {
+        int nbre = 0;
+        try {
+            database.openConnexion();
+            database.initPrepareStatement(SQL_FIND_NBRE_CONS);
+            database.getPs().setInt(1, id);
+            ResultSet rs =database.executeSelect(SQL_FIND_NBRE_CONS);
+            while(rs.next()){
+                nbre=nbre+1;
+            }
+            
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(DocteurDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     System.out.print(nbre);   
+    return nbre;
+    }
+    
+    public int nbreRdv(int id,String date) {
+        int nbre = 0;
+        try {
+            database.openConnexion();
+            database.initPrepareStatement(SQL_FIND_NBRE_CONS_DATE);
+            database.getPs().setInt(1, id);
+            database.getPs().setString(2, date);
+            ResultSet rs =database.executeSelect(SQL_FIND_NBRE_CONS_DATE);
+            while(rs.next()){
+                nbre=nbre+1;
+            }
+            
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(DocteurDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     System.out.print(nbre);   
+    return nbre;
+    }
+        
     
 }

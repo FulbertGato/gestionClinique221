@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  * @author junio
  */
 public class PatientDao implements IDao<Patient> {
-    private final String SQL_INSERT="INSERT INTO `user` (`nomComplet`, `login`, `password`, `code`,  `antecedants`, `role_id`) VALUES ( ?, ?, ?,  ?, ?, ?)";
+    private final String SQL_INSERT="INSERT INTO `user` (`nomComplet`, `login`, `password`, `code`,  `antecedants`,`telephone`, `role_id`) VALUES ( ?,?, ?, ?,  ?, ?, ?)";
     private final String  SQL_FIND_ALL = "SELECT * FROM user WHERE code > 0";
     private final String  SQL_FIND_BY_EMAIL = "SELECT * FROM user WHERE email like ?";
      private final String  SQL_FIND_BY_CODE= "SELECT * FROM user WHERE code like ?";
@@ -40,7 +40,8 @@ public class PatientDao implements IDao<Patient> {
             database.getPs().setString(3, patient.getPassword());
             database.getPs().setString(4, patient.getCode());
             database.getPs().setString(5, patient.getAntecedants());
-            database.getPs().setInt(6, patient.getRoleId());
+            database.getPs().setString(6, patient.getTelephone());
+            database.getPs().setInt(7, patient.getRoleId());
             database.executeUpdate(SQL_INSERT);
             ResultSet rs=database.getPs().getGeneratedKeys();
             if(rs.next()){
@@ -68,7 +69,7 @@ public class PatientDao implements IDao<Patient> {
 
     @Override
     public List<Patient> findAll() {
-        List<Patient> patients=new ArrayList<Patient>();
+        List<Patient> patients=new ArrayList<>();
         
         try {
             database.openConnexion();
@@ -86,7 +87,7 @@ public class PatientDao implements IDao<Patient> {
                 rs.getString("password"), 
                 role,
                 rs.getString("code"), 
-                rs.getString("antecedants")
+                rs.getString("antecedants"),rs.getString("telephone")
                 );
                 patients.add(patient);
                 } catch (SQLException ex) {
@@ -118,7 +119,8 @@ public class PatientDao implements IDao<Patient> {
                     rs.getString("password"),
                     role,
                     rs.getString("code"), 
-                    rs.getString("antecedants")
+                    rs.getString("antecedants"),
+                    rs.getString("telephone")
                 );
                
                 
@@ -157,7 +159,8 @@ public class PatientDao implements IDao<Patient> {
                     rs.getString("password"),
                     role,
                     rs.getString("code"), 
-                    rs.getString("antecedants")
+                    rs.getString("antecedants"),
+                    rs.getString("telephone")
                 );
                
                 

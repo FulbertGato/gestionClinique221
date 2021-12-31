@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author junio
  */
-public class daoService {
+public class DaoService {
     
       public static String lts(LocalDate lctdate){
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-LLLL-yyyy");

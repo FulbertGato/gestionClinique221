@@ -56,13 +56,13 @@ public class MyRendezVousController implements Initializable {
     }    
      private void loadTableView(){
          Patient patient = service.searchPatientById(user.getIdUser());
-        List<RendezVousDTO> rdvList=service.showAllRendezVous("EN COURS", patient.getCode());
-        obvRdv=FXCollections.observableArrayList(rdvList);
+         List<RendezVousDTO> rdvList=service.showAllRendezVous("EN COURS", patient.getCode());
+         obvRdv=FXCollections.observableArrayList(rdvList);
         //Construction des colonnes
-        tblcService.setCellValueFactory(new PropertyValueFactory<>("consultOrPresta"));
-        tblcType.setCellValueFactory(new PropertyValueFactory<>("consultOrPrestaType"));
-        tblDate.setCellValueFactory(new PropertyValueFactory<>("dateRendezVous"));
-        tblEtat.setCellValueFactory(new PropertyValueFactory<>("etat"));
+         tblcService.setCellValueFactory(new PropertyValueFactory<>("consultOrPresta"));
+         tblcType.setCellValueFactory(new PropertyValueFactory<>("consultOrPrestaType"));
+         tblDate.setCellValueFactory(new PropertyValueFactory<>("dateRendezVous"));
+         tblEtat.setCellValueFactory(new PropertyValueFactory<>("etat"));
          tblcPatient.setCellValueFactory(new PropertyValueFactory<>("patient"));
         
         
