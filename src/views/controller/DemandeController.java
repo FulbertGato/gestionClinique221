@@ -179,7 +179,7 @@ public class DemandeController implements Initializable {
     private void handleChangeTypeConsultation(ActionEvent event) {
         // cboxTypePrestaion=null;
        ///  cboxChoix.disabledProperty();
-       cboxTypePrestaion.getSelectionModel().clearSelection();
+         cboxTypePrestaion.getSelectionModel().clearSelection();
          consulChoix = cboxTypeConsultation.getSelectionModel().getSelectedItem();
     }
 

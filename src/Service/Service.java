@@ -20,6 +20,8 @@ import entities.User;
 import dao.ConsultationDao;
 import dao.DetailPrestationDao;
 import dao.DocteurDao;
+import dao.MedicamentDao;
+import dao.OrdonnanceDao;
 import dao.PatientDao;
 import dao.PrestationDao;
 import dao.RendezVousDao;
@@ -27,6 +29,8 @@ import dao.RoleDao;
 import dao.SpecialiteDao;
 import dao.UserDao;
 import dto.RendezVousDTO;
+import entities.Medicament;
+import entities.Ordonnance;
 /**
  *
  * @author junio
@@ -41,7 +45,8 @@ public class Service implements IService{
     PrestationDao daoPresta = new PrestationDao();
     SpecialiteDao daoSpe = new SpecialiteDao();
     DetailPrestationDao daoPrestaDetail = new DetailPrestationDao ();
-
+    MedicamentDao daoMedicament = new MedicamentDao();
+    OrdonnanceDao daoOrdonnance = new OrdonnanceDao();
     @Override
     public User login(String email, String password) {
         return daoUser.findUserByLoginPassword(email,password);
@@ -259,6 +264,24 @@ public class Service implements IService{
     @Override
     public Docteur docteurById(int id) {
         return daoDocteur.findById(id);
+    }
+
+    public Medicament addMedicament(Medicament medicament) {
+        
+        Medicament med = daoMedicament.findByLibelle(medicament.getLibelle());
+        if(med==null){
+            int id = daoMedicament.insert(medicament);
+            med = daoMedicament.findById(id);   
+        }
+        return med;
+    }
+
+    public Ordonnance ordonnanceById(int idOrdonnance) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public int addOrdonnance(Ordonnance ordonnance) {
+        return  daoOrdonnance.insert(ordonnance);
     }
 
     
