@@ -8,7 +8,6 @@ package views.controller;
 import Service.Service;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import dto.ConsultationDTo;
@@ -18,7 +17,6 @@ import entities.Ordonnance;
 import entities.Prestation;
 import entities.Specialite;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -32,7 +30,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import views.controller.RdvDocteurController;
 
 /**
  * FXML Controller class
@@ -101,6 +98,12 @@ public class DetailconsultationController implements Initializable {
     private void enregistrerOrdonnance(ActionEvent event) {
         
         int id =service.addOrdonnance(ordonnance);
+        if(id!=0){
+            
+            consultation.setOrdonnance(service.findOrdonnanceById(id));
+           int re= service.addOrdonnanceToConsultation(consultation);
+        
+        }
     }
 
     @FXML

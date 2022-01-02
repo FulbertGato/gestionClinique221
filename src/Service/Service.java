@@ -28,6 +28,7 @@ import dao.RendezVousDao;
 import dao.RoleDao;
 import dao.SpecialiteDao;
 import dao.UserDao;
+import dto.ConsultationDTo;
 import dto.RendezVousDTO;
 import entities.Medicament;
 import entities.Ordonnance;
@@ -284,18 +285,14 @@ public class Service implements IService{
         return  daoOrdonnance.insert(ordonnance);
     }
 
+    public Ordonnance findOrdonnanceById(int id) {
+        return  daoOrdonnance.findById(id);
+    }
+
+    public int addOrdonnanceToConsultation(ConsultationDTo consultation) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
-
- 
-
-   
-
-    
-
-
-   
-
-     
 }
 
 

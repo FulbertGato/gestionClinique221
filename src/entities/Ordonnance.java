@@ -35,6 +35,11 @@ public class Ordonnance {
         this.consultation = consultation;
         this.medicaments=medicaments;
     }
+    public Ordonnance(int idOrdonnance, ConsultationDTo consultation) {
+        this.idOrdonnance = idOrdonnance;
+        this.consultation = consultation;
+       
+    }
     public Ordonnance(ConsultationDTo consultation,HashMap<Medicament, String> medicaments) {
         
         this.consultation = consultation;
