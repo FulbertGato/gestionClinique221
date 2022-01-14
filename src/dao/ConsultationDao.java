@@ -30,7 +30,7 @@ public class ConsultationDao implements IDao<Consultation> {
     
     private final String SQL_INSERT="INSERT INTO `consultation` (`statut`, `date`, `patient_code` , `medecin_id`, `rdv_id`, `specialite_id`) VALUES ( ?, ?, ?,?,?,?)";
     private final String  SQL_FIND_RDV_BY_ETAT_DATE_BY_DOCTOR= "SELECT * FROM consultation WHERE  `statut` like ? OR `date` like ? AND`medecin_id` = ?  "; 
-    private final String SQL_UPDATE = "UPDATE `consultation` SET  `ordonnance_id` = ?  WHERE `consultation`.`id_consultation` = ? ";
+    private final String SQL_UPDATE = "UPDATE `consultation` SET  `ordonnance_id` = ? , `statut` = ?, `prestation_id` = ? , `constante` = ? WHERE `consultation`.`id_consultation` = ? ";
     private final String SQL_SELECT_BY_ID ="SELECT * FROM `consultation`  WHERE id_consultation = ? ";
     private final DataBase database= new DataBase();
     private final PatientDao patientDao = new PatientDao();
@@ -51,7 +51,8 @@ public class ConsultationDao implements IDao<Consultation> {
             System.out.println(ogj.getDocteur().getIdUser());
             database.getPs().setInt(4, ogj.getDocteur().getIdUser());
             database.getPs().setInt(5, ogj.getRdv().getIdRendezVous());
-            database.getPs().setInt(6, ogj.getSpecialite().getIdSpecialite());
+            database.getPs().setString(6, ogj.getConstante());
+            database.getPs().setInt(7, ogj.getSpecialite().getIdSpecialite());
             database.executeUpdate(SQL_INSERT);
             ResultSet rs=database.getPs().getGeneratedKeys();
             if(rs.next()){
@@ -80,7 +81,9 @@ public class ConsultationDao implements IDao<Consultation> {
              database.initPrepareStatement(SQL_UPDATE);
             
             database.getPs().setInt(1, consultation.getOrdonnance().getIdOrdonnance());
-            database.getPs().setInt(2, consultation.getIdConsultation());
+            database.getPs().setString(2, consultation.getStatus());
+            database.getPs().setInt(3, consultation.getRdv().getIdRendezVous());
+            database.getPs().setInt(4, consultation.getIdConsultation());
             id = database.executeUpdate(SQL_UPDATE);
         } catch (SQLException ex) {
             Logger.getLogger(ConsultationDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,7 +131,7 @@ public class ConsultationDao implements IDao<Consultation> {
                         rs.getString("statut"),
                         rs.getInt("ordonnance_id")
                 );
-                c.setConstante("test por voir cause bug");
+                c.setConstante(rs.getString("constante"));
             }
             
             
@@ -166,7 +169,7 @@ public class ConsultationDao implements IDao<Consultation> {
                         rs.getString("statut"),
                         rs.getInt("ordonnance_id")
                 );
-                consultation.setConstante("test por voir cause bug");
+                consultation.setConstante(rs.getString("constante"));
                 consList.add(consultation);
             }
         } catch (SQLException ex) {

@@ -74,8 +74,7 @@ public class DemandeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txtError.setVisible(false);
-        ViewService.datePastDesactive(dateChoix);
-        
+        ViewService.datePastDesactive(dateChoix);       
         ViewService.loadComboBoxService(cboxChoix);
         
       
@@ -114,7 +113,7 @@ public class DemandeController implements Initializable {
             if(prestations!=null){prestations.forEach((p) -> {
                 cboxTypePrestaion.getItems().add(p);
                 });
-}
+                }
            
         }
     }

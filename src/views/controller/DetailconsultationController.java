@@ -12,11 +12,14 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import dto.ConsultationDTo;
 import dto.MedicamentDTO;
+import dto.RendezVousDTO;
 import entities.Medicament;
 import entities.Ordonnance;
+import entities.Patient;
 import entities.Prestation;
 import entities.Specialite;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -30,6 +33,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import utils.ViewService;
 
 /**
  * FXML Controller class
@@ -83,6 +87,15 @@ public class DetailconsultationController implements Initializable {
     private JFXButton planifierRdvBtn;
     @FXML
     private AnchorPane popupPlanifierRdv;
+    
+    
+    private String choix;
+    private List<Specialite> consultations;
+    private List<Prestation> prestations;
+    private Specialite consulChoix=null;
+     private  Prestation prestaChoix=null;
+     private int idRdv =0;
+    
     /**
      * Initializes the controller class.
      */
@@ -93,12 +106,16 @@ public class DetailconsultationController implements Initializable {
         etatConsult.setText(consultation.getStatus());
         popuMedicament.setVisible(false);
         popupPlanifierRdv.setVisible(false);
-        if(consultation.getIdOrdonnance() == 0){        
+        ViewService.loadComboBoxService(cboxChoix);
+        if(!"TERMINER".equals(consultation.getStatus())){        
             ordonnance=new Ordonnance(consultation); 
             System.out.println(" Ordonnance pas trouver ");
         }else{
             enregistrerBtn.setDisable(true);
+            planierdvBtn.setDisable(true);
+            addMedicamentBtn.setDisable(true);
             System.out.println(" Ordonnance  trouver ");
+            constante.setText(consultation.getConstante());
             ordonnance=service.findOrdonnanceById(consultation.getIdOrdonnance());
             medicaments=ordonnance.getMedicaments();
             
@@ -114,8 +131,13 @@ public class DetailconsultationController implements Initializable {
              System.out.println(id);
              consultation.setConstante(constante.getText());
              consultation.setOrdonnance(service.findOrdonnanceById(id));
+          if(idRdv!=0){
+              
+              consultation.setRdv(service.showRendezVousById(idRdv));
           
-           service.addOrdonnanceToConsultation(consultation);
+          }
+          consultation.setStatus("TERMINER");
+          service.addOrdonnanceToConsultation(consultation);
         
         }
     }
@@ -127,14 +149,53 @@ public class DetailconsultationController implements Initializable {
 
     @FXML
     private void handleChangeChoix(ActionEvent event){
+        choix = cboxChoix.getSelectionModel().getSelectedItem();
+        if("Consultation".equals(choix)){
+            
+            if(cboxTypePrestaion != null ){
+                
+                cboxTypePrestaion.setVisible(false);
+            }
+            
+            cboxTypeConsultation.setVisible(true);
+            cboxTypeConsultation.getItems().clear();
+            
+            consultations=service.showAllSpecialite();
+            if(consultations!=null){
+            
+                consultations.forEach((sp) -> {
+                    cboxTypeConsultation.getItems().add(sp);
+                });
+            }
+            
+
+        
+        }else if ("Prestation".equals(choix)){
+              if(cboxTypeConsultation != null ){
+                
+                cboxTypeConsultation.setVisible(false);
+            }
+            cboxTypePrestaion.setVisible(true);
+            prestations=service.showAllPrestation();
+            cboxTypePrestaion.getItems().clear();
+            if(prestations!=null){prestations.forEach((p) -> {
+                cboxTypePrestaion.getItems().add(p);
+                });
+                }
+           
+        }
     }
 
     @FXML
     private void handleChangeTypeConsultation(ActionEvent event) {
+         cboxTypePrestaion.getSelectionModel().clearSelection();
+         consulChoix = cboxTypeConsultation.getSelectionModel().getSelectedItem();
     }
 
     @FXML
     private void handleChangeTypePrestation(ActionEvent event) {
+         cboxTypeConsultation.getSelectionModel().clearSelection();
+        prestaChoix = cboxTypePrestaion.getSelectionModel().getSelectedItem();
     }
 
     @FXML
@@ -178,7 +239,7 @@ public class DetailconsultationController implements Initializable {
     @FXML
     private void planierdvAction(ActionEvent event) {
         popupPlanifierRdv.setVisible(true);
-        planifierRdvBtn.setDisable(true);
+        planierdvBtn.setDisable(true);
         addMedicamentBtn.setDisable(true);
     }
 
@@ -186,10 +247,49 @@ public class DetailconsultationController implements Initializable {
     private void CancelrdvBtnAction(ActionEvent event) {
         popupPlanifierRdv.setVisible(false);
         planifierRdvBtn.setDisable(false);
+        addMedicamentBtn.setDisable(false);
     }
 
     @FXML
     private void planifierRdvBtnAction(ActionEvent event) {
+        
+        Prestation  presta =  prestaChoix;  
+        Specialite sper = consulChoix;
+        Patient patient = consultation.getPatient();
+            
+            if(presta ==null ){
+              //  txtError.setVisible(false);
+              //a corriger apres esposé : ne pas enregistrement un rdv sans validation
+                LocalDate createDateTime = LocalDate.now();
+                
+                RendezVousDTO rdv = new RendezVousDTO();
+                rdv.setCreateDateTime(createDateTime);
+                rdv.setDateRendezVous(createDateTime);
+                rdv.setEtat("EN COURS");
+                rdv.setPatient(patient);
+                rdv.setSpecialite(sper);
+                idRdv = service.addRendezVous(rdv);
+                //tankView();
+                popupPlanifierRdv.setVisible(false);
+            }
+            
+            else if(sper ==null ){
+                
+                LocalDate createDateTime = LocalDate.now();
+                RendezVousDTO rdv = new RendezVousDTO();
+                rdv.setCreateDateTime(createDateTime);
+                rdv.setDateRendezVous(createDateTime);
+                rdv.setEtat("EN COURS");
+                rdv.setPatient(patient);
+                rdv.setPrestation(presta);
+                idRdv = service.addRendezVous(rdv);
+               // tankView();
+               popupPlanifierRdv.setVisible(false);
+            
+            }
+            addMedicamentBtn.setDisable(false);
+            
+            
     }
     
 }
