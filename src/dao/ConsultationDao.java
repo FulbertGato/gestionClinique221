@@ -5,11 +5,13 @@
  */
 package dao;
 
+import Service.Service;
 import dto.RendezVousDTO;
 import java.util.List;
 
 import entities.Consultation;
 import entities.Docteur;
+import entities.Ordonnance;
 import entities.Patient;
 import entities.Specialite;
 import java.sql.ResultSet;
@@ -32,6 +34,7 @@ public class ConsultationDao implements IDao<Consultation> {
     private final SpecialiteDao speDao = new SpecialiteDao();
     private final DocteurDao docDao = new DocteurDao();
     private final RendezVousDao rdvDao= new RendezVousDao();
+    //private final OrdonnanceDao ordDao = new OrdonnanceDao();
     DaoService daoService = new DaoService();
     @Override
     public int insert(Consultation ogj) {
@@ -100,6 +103,7 @@ public class ConsultationDao implements IDao<Consultation> {
                 System.out.print(pat);
                 Docteur doc = docDao.findById(rs.getInt("medecin_id"));
                 RendezVousDTO rdvDto = rdvDao.findById(rs.getInt("rdv_id"));
+               // Ordonnance ordonnance = ordDao.findById(rs.getInt("ordonnance_id"));
                 Consultation  consultation = new Consultation(
                 rs.getInt("id_consultation"),
                         sp,
@@ -107,7 +111,8 @@ public class ConsultationDao implements IDao<Consultation> {
                         doc,
                         daoService.stl(rs.getString("date")),
                         rdvDto,
-                        rs.getString("statut")
+                        rs.getString("statut"),
+                        rs.getInt("ordonnance_id")
                 );
                 consList.add(consultation);
             }

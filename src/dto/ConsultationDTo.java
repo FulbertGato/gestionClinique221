@@ -31,11 +31,15 @@ public class ConsultationDTo {
     private String nomPatient;
     private String antPatient;
     private String telPtaient;
+    private int idOrdonnance;
+
+   
     public ConsultationDTo(){}
     public void toDto(Consultation cons) {
         this.constante=cons.getConstante();
         this.docteur=cons.getDocteur();
         this.idConsultation=cons.getIdConsultation();
+        this.idOrdonnance=cons.getIdOrdonnance();
         this.ordonnance=cons.getOrdonnance();
         this.patient=cons.getPatient();
         this.prestation=cons.getPrestation();
@@ -145,5 +149,11 @@ public class ConsultationDTo {
         this.rdv = rdv;
     }
     
-    
+     public int getIdOrdonnance() {
+        return idOrdonnance;
+    }
+
+    public void setIdOrdonnance(int idOrdonnance) {
+        this.idOrdonnance = idOrdonnance;
+    }
 }

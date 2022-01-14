@@ -75,6 +75,8 @@ public class DetailconsultationController implements Initializable {
      private final Service service = new Service();
      Ordonnance ordonnance = new Ordonnance();
      private HashMap<Medicament, String> medicaments = new HashMap<Medicament, String>();
+    @FXML
+    private JFXButton enregistrerBtn;
     /**
      * Initializes the controller class.
      */
@@ -84,24 +86,27 @@ public class DetailconsultationController implements Initializable {
         antecedant.setText(consultation.getPatient().getAntecedants());
         etatConsult.setText(consultation.getStatus());
         popuMedicament.setVisible(false);
-        if(consultation.getOrdonnance()==null){        
-            ordonnance=new Ordonnance(consultation);           
+        if(consultation.getIdOrdonnance() == 0){        
+            ordonnance=new Ordonnance(consultation); 
+            System.out.println(" Ordonnance pas trouver ");
         }else{
         
-            ordonnance=service.ordonnanceById(consultation.getOrdonnance().getIdOrdonnance());
+            ordonnance=service.ordonnanceById(consultation.getIdOrdonnance());
             medicaments=ordonnance.getMedicaments();
+            System.out.println(" Ordonnance  trouver ");
             loadTableView();
         }
     }    
 
     @FXML
     private void enregistrerOrdonnance(ActionEvent event) {
-        
+        enregistrerBtn.setDisable(true);
         int id =service.addOrdonnance(ordonnance);
         if(id!=0){
             
             consultation.setOrdonnance(service.findOrdonnanceById(id));
-           int re= service.addOrdonnanceToConsultation(consultation);
+          //  int rec = service.
+            int re= service.addOrdonnanceToConsultation(consultation);
         
         }
     }

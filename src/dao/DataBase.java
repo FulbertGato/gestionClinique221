@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class DataBase {
     @SuppressWarnings("FieldMayBeFinal")
-    private String url="jdbc:mysql://localhost:3306/gestion_clinique_221";
+    private String url="jdbc:mysql://localhost:3306/java_clinique_appointment";
     @SuppressWarnings("FieldMayBeFinal")
     private String user="root";
     @SuppressWarnings("FieldMayBeFinal")

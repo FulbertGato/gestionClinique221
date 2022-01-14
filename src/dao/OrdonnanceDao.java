@@ -27,7 +27,7 @@ public class OrdonnanceDao implements IDao<Ordonnance> {
     private final String SQL_SELECT_BY_ID ="SELECT * FROM `ordonnance` o ,`ordonnance_medicament` om    WHERE o.id_ordonnance=? AND om.ordonnance_id = ?  ";
     private final DataBase database= new DataBase();
     private final ConsultationDao daoConsultation = new ConsultationDao();
-     private final MedicamentDao daoMedicament = new MedicamentDao();
+    private final MedicamentDao daoMedicament = new MedicamentDao();
 
     @Override
     public int insert(Ordonnance ordonnance) {
@@ -94,7 +94,7 @@ public class OrdonnanceDao implements IDao<Ordonnance> {
             if(rs.next())
             {
                ConsultationDTo  consultation = new ConsultationDTo();
-               consultation.toDto(daoConsultation.findById( rs.getInt("consultation_id")));
+                consultation.toDto(daoConsultation.findById( rs.getInt("consultation_id")));
                 m = new Ordonnance(rs.getInt("id_ordonnance"),consultation);
                 HashMap<Medicament, String> medicaments = null;
                while(rs.next()){

@@ -24,8 +24,32 @@ public class Consultation {
     private Ordonnance ordonnance;
     private Prestation prestation;
     private RendezVousDTO rdv;
+    //variable espagheti en attendant une solution
+    private int idOrdonnance;
+
+    public int getIdOrdonnance() {
+        return idOrdonnance;
+    }
+
+    public void setIdOrdonnance(int idOrdonnance) {
+        this.idOrdonnance = idOrdonnance;
+    }
     
+        public Consultation(int id,Specialite specialite, Patient patient ,  Docteur docteur,LocalDate startDate,RendezVousDTO rdv,String status,int idOrdo) {
+        this.idConsultation=id;
+        this.status = status;
+        this.constante = constante;
+        this.startDate = startDate;
+        this.prestation = prestation;
+        this.docteur = docteur;
+        this.specialite=specialite;
+        this.rdv = rdv;
+        this.patient = patient;
+        this.idOrdonnance = idOrdo;
+        
+    }
     
+    //fin
     
     public Consultation(Specialite specialite, Patient patient ,  Docteur docteur,LocalDate startDate,RendezVousDTO rdv,String status) {
         
@@ -49,6 +73,20 @@ public class Consultation {
         this.specialite=specialite;
         this.rdv = rdv;
         this.patient = patient;
+        
+    }
+    
+    public Consultation(int id,Specialite specialite, Patient patient ,  Docteur docteur,LocalDate startDate,RendezVousDTO rdv,String status,Ordonnance ordonnance) {
+        this.idConsultation=id;
+        this.status = status;
+        this.constante = constante;
+        this.startDate = startDate;
+        this.prestation = prestation;
+        this.docteur = docteur;
+        this.specialite=specialite;
+        this.rdv = rdv;
+        this.patient = patient;
+        this.ordonnance = ordonnance;
         
     }
     

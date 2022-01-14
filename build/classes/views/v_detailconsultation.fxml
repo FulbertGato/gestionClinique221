@@ -22,7 +22,7 @@
           <TableColumn fx:id="posLogie" minWidth="0.0" prefWidth="221.0" text="Posologie" />
         </columns>
       </TableView>
-      <JFXButton layoutX="31.0" layoutY="525.0" onAction="#enregistrerOrdonnance" prefHeight="25.0" prefWidth="260.0" style="-fx-background-color: #008000;" styleClass="loginBtn" stylesheets="@styles/loginAndRegister.css" text="Enregistrer " />
+      <JFXButton fx:id="enregistrerBtn" layoutX="31.0" layoutY="525.0" onAction="#enregistrerOrdonnance" prefHeight="25.0" prefWidth="260.0" style="-fx-background-color: #008000;" styleClass="loginBtn" stylesheets="@styles/loginAndRegister.css" text="Enregistrer " />
       <JFXButton fx:id="addMedicamentBtn" layoutX="4.0" layoutY="253.0" onAction="#addMedicament" prefHeight="25.0" prefWidth="374.0" styleClass="loginBtn" stylesheets="@styles/loginAndRegister.css" text="Ajouter medicament" />
       <JFXComboBox fx:id="cboxChoix" focusColor="#6747cd" layoutX="14.0" layoutY="384.0" onAction="#handleChangeChoix" prefHeight="39.0" prefWidth="260.0" promptText="Faites un choix">
          <cursor>
