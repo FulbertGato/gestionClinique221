@@ -77,6 +77,12 @@ public class DetailconsultationController implements Initializable {
      private HashMap<Medicament, String> medicaments = new HashMap<Medicament, String>();
     @FXML
     private JFXButton enregistrerBtn;
+    @FXML
+    private JFXButton planierdvBtn;
+    @FXML
+    private JFXButton planifierRdvBtn;
+    @FXML
+    private AnchorPane popupPlanifierRdv;
     /**
      * Initializes the controller class.
      */
@@ -86,14 +92,16 @@ public class DetailconsultationController implements Initializable {
         antecedant.setText(consultation.getPatient().getAntecedants());
         etatConsult.setText(consultation.getStatus());
         popuMedicament.setVisible(false);
+        popupPlanifierRdv.setVisible(false);
         if(consultation.getIdOrdonnance() == 0){        
             ordonnance=new Ordonnance(consultation); 
             System.out.println(" Ordonnance pas trouver ");
         }else{
-        
-            ordonnance=service.ordonnanceById(consultation.getIdOrdonnance());
-            medicaments=ordonnance.getMedicaments();
+            enregistrerBtn.setDisable(true);
             System.out.println(" Ordonnance  trouver ");
+            ordonnance=service.findOrdonnanceById(consultation.getIdOrdonnance());
+            medicaments=ordonnance.getMedicaments();
+            
             loadTableView();
         }
     }    
@@ -103,10 +111,11 @@ public class DetailconsultationController implements Initializable {
         enregistrerBtn.setDisable(true);
         int id =service.addOrdonnance(ordonnance);
         if(id!=0){
-            
-            consultation.setOrdonnance(service.findOrdonnanceById(id));
-          //  int rec = service.
-            int re= service.addOrdonnanceToConsultation(consultation);
+             System.out.println(id);
+             consultation.setConstante(constante.getText());
+             consultation.setOrdonnance(service.findOrdonnanceById(id));
+          
+           service.addOrdonnanceToConsultation(consultation);
         
         }
     }
@@ -164,6 +173,23 @@ public class DetailconsultationController implements Initializable {
          nomMeoc.setCellValueFactory(new PropertyValueFactory<>("medicament"));
          posLogie.setCellValueFactory(new PropertyValueFactory<>("posologie"));
         tblvMedicament.setItems(obvMedicaments);
+    }
+
+    @FXML
+    private void planierdvAction(ActionEvent event) {
+        popupPlanifierRdv.setVisible(true);
+        planifierRdvBtn.setDisable(true);
+        addMedicamentBtn.setDisable(true);
+    }
+
+    @FXML
+    private void CancelrdvBtnAction(ActionEvent event) {
+        popupPlanifierRdv.setVisible(false);
+        planifierRdvBtn.setDisable(false);
+    }
+
+    @FXML
+    private void planifierRdvBtnAction(ActionEvent event) {
     }
     
 }

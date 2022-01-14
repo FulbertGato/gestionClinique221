@@ -24,7 +24,8 @@ public class OrdonnanceDao implements IDao<Ordonnance> {
     
     private final String SQL_INSERT="INSERT INTO `ordonnance` (`consultation_id`) VALUES ( ?)";
     private final String SQL_INSERT_MEDICAMENT_POSOLOGIE="INSERT INTO `ordonnance_medicament` (`ordonnance_id`,`medicament_id`,`posologie`) VALUES (?,?,?)";
-    private final String SQL_SELECT_BY_ID ="SELECT * FROM `ordonnance` o ,`ordonnance_medicament` om    WHERE o.id_ordonnance=? AND om.ordonnance_id = ?  ";
+    private final String SQL_SELECT_BY_ID ="SELECT * FROM `ordonnance`  WHERE id_ordonnance = ? ";
+    private final String SQL_SELECT_BY_ID_ORD_MED ="SELECT * FROM `ordonnance_medicament`  WHERE ordonnance_id	 = ? ";
     private final DataBase database= new DataBase();
     private final ConsultationDao daoConsultation = new ConsultationDao();
     private final MedicamentDao daoMedicament = new MedicamentDao();
@@ -88,18 +89,24 @@ public class OrdonnanceDao implements IDao<Ordonnance> {
             database.openConnexion();
             database.initPrepareStatement(SQL_SELECT_BY_ID);
             database.getPs().setInt(1, id);
+           // database.getPs().setInt(2, id);
             ResultSet rs = database.executeSelect(SQL_SELECT_BY_ID);
             
             
             if(rs.next())
             {
-               ConsultationDTo  consultation = new ConsultationDTo();
-                consultation.toDto(daoConsultation.findById( rs.getInt("consultation_id")));
+                ConsultationDTo  consultation = new ConsultationDTo();
+                consultation.toDto(daoConsultation.findById(rs.getInt("consultation_id")));
                 m = new Ordonnance(rs.getInt("id_ordonnance"),consultation);
-                HashMap<Medicament, String> medicaments = null;
-               while(rs.next()){
+                HashMap<Medicament, String> medicaments = new HashMap<Medicament, String> ();
+                database.initPrepareStatement(SQL_SELECT_BY_ID_ORD_MED);
+                database.getPs().setInt(1, rs.getInt("id_ordonnance"));
+                ResultSet rsM = database.executeSelect(SQL_SELECT_BY_ID_ORD_MED);
+               
+               while(rsM.next()){
                 
-                   medicaments.put(daoMedicament.findById(rs.getInt("medicament_id")), rs.getString("id_ordonnance"));
+                   
+                   medicaments.put(daoMedicament.findById(rsM.getInt("medicament_id")), rsM.getString("posologie"));
                    
                 }
                m.setMedicaments(medicaments);

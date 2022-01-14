@@ -20,7 +20,7 @@ public class MedicamentDao implements IDao<Medicament> {
     private final DataBase database= new DataBase();
     private final String  SQL_FIND_LIBELLE = "SELECT * FROM medicament WHERE libelle LIKE  ?";
     private final String SQL_INSERT="INSERT INTO `medicament` (`libelle`) VALUES ( ?)";
-    private final String SQL_SELECT_MEDICAMENT_BY_ID ="SELECT * FROM `medicament`  WHERE id_medicament  LIKE  ? ";
+    private final String SQL_SELECT_MEDICAMENT_BY_ID ="SELECT * FROM `medicament`  WHERE id_medicament  =  ? ";
 
     @Override
     public int insert(Medicament medicament) {
@@ -73,11 +73,7 @@ public class MedicamentDao implements IDao<Medicament> {
                         rs.getInt("id_medicament"),
                         rs.getString("libelle")
                 );
-                
-
-                
-                
-                
+                 
             }
             
             

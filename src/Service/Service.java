@@ -290,7 +290,7 @@ public class Service implements IService{
     }
 
     public int addOrdonnanceToConsultation(ConsultationDTo consultation) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return daoConsul.update(consultation);
     }
     
 }

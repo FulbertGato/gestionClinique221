@@ -6,6 +6,7 @@
 package dao;
 
 import Service.Service;
+import dto.ConsultationDTo;
 import dto.RendezVousDTO;
 import java.util.List;
 
@@ -29,6 +30,8 @@ public class ConsultationDao implements IDao<Consultation> {
     
     private final String SQL_INSERT="INSERT INTO `consultation` (`statut`, `date`, `patient_code` , `medecin_id`, `rdv_id`, `specialite_id`) VALUES ( ?, ?, ?,?,?,?)";
     private final String  SQL_FIND_RDV_BY_ETAT_DATE_BY_DOCTOR= "SELECT * FROM consultation WHERE  `statut` like ? OR `date` like ? AND`medecin_id` = ?  "; 
+    private final String SQL_UPDATE = "UPDATE `consultation` SET  `ordonnance_id` = ?  WHERE `consultation`.`id_consultation` = ? ";
+    private final String SQL_SELECT_BY_ID ="SELECT * FROM `consultation`  WHERE id_consultation = ? ";
     private final DataBase database= new DataBase();
     private final PatientDao patientDao = new PatientDao();
     private final SpecialiteDao speDao = new SpecialiteDao();
@@ -68,6 +71,23 @@ public class ConsultationDao implements IDao<Consultation> {
         return 0;
     }
 
+    public int update(ConsultationDTo consultation) {
+       int id=0;
+       
+       
+        try {
+             database.openConnexion();
+             database.initPrepareStatement(SQL_UPDATE);
+            
+            database.getPs().setInt(1, consultation.getOrdonnance().getIdOrdonnance());
+            database.getPs().setInt(2, consultation.getIdConsultation());
+            id = database.executeUpdate(SQL_UPDATE);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultationDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return id;
+    } 
     @Override
     public int delete(int id) {
         // TODO Auto-generated method stub
@@ -82,8 +102,40 @@ public class ConsultationDao implements IDao<Consultation> {
 
     @Override
     public Consultation findById(int id) {
-        // TODO Auto-generated method stub
-        return null;
+        Consultation c = null;
+        try {
+            database.openConnexion();
+            database.initPrepareStatement(SQL_SELECT_BY_ID);
+            database.getPs().setInt(1, id);
+            
+            ResultSet rs = database.executeSelect(SQL_SELECT_BY_ID);
+            
+            if(rs.next())
+            {
+                Specialite sp = speDao.findById(rs.getInt("specialite_id"));
+                Patient pat = patientDao.findByCode(rs.getString("patient_code"));
+                System.out.print(pat);
+                Docteur doc = docDao.findById(rs.getInt("medecin_id"));
+                RendezVousDTO rdvDto = rdvDao.findById(rs.getInt("rdv_id"));
+               // Ordonnance ordonnance = ordDao.findById(rs.getInt("ordonnance_id"));
+                c = new Consultation(
+                rs.getInt("id_consultation"),
+                        sp,
+                        pat,
+                        doc,
+                        daoService.stl(rs.getString("date")),
+                        rdvDto,
+                        rs.getString("statut"),
+                        rs.getInt("ordonnance_id")
+                );
+                c.setConstante("test por voir cause bug");
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultationDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return c;
     }
 
   
@@ -114,6 +166,7 @@ public class ConsultationDao implements IDao<Consultation> {
                         rs.getString("statut"),
                         rs.getInt("ordonnance_id")
                 );
+                consultation.setConstante("test por voir cause bug");
                 consList.add(consultation);
             }
         } catch (SQLException ex) {
