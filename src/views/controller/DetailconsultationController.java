@@ -200,6 +200,13 @@ public class DetailconsultationController implements Initializable {
 
     @FXML
     private void voirRdvPlanier(ActionEvent event) {
+        if(null != consultation.getPrestation()){
+        
+            RendezVousDTO rdvPlanifier = service.showRendezVousById(consultation.getPrestation().getIdRendezVous());
+            System.out.println(rdvPlanifier.getEtat());        
+        } else {
+            
+        }
     }
 
     @FXML

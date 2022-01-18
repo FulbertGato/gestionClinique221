@@ -22,7 +22,7 @@ public class Consultation {
     private Docteur docteur;
     private Specialite specialite;
     private Ordonnance ordonnance;
-    private Prestation prestation;
+    private RendezVousDTO prestation;
     private RendezVousDTO rdv;
     //variable espagheti en attendant une solution
     private int idOrdonnance;
@@ -90,12 +90,7 @@ public class Consultation {
         
     }
     
-    public Consultation(String status, String constante, LocalDate startDate, Prestation prestation) {
-        this.status = status;
-        this.constante = constante;
-        this.startDate = startDate;
-        this.prestation = prestation;
-    }
+    
 
     
 
@@ -121,10 +116,10 @@ public class Consultation {
     public int getIdConsultation() {
         return idConsultation;
     }
-    public Prestation getPrestation() {
+    public RendezVousDTO getPrestation() {
         return this.prestation;
     }
-    public void setPrestation(Prestation prestation) {
+    public void setPrestation(RendezVousDTO prestation) {
         this.prestation = prestation;
     }
     public Ordonnance getOrdonnance() {

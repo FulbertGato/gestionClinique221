@@ -158,6 +158,8 @@ public class ConsultationDao implements IDao<Consultation> {
                 System.out.print(pat);
                 Docteur doc = docDao.findById(rs.getInt("medecin_id"));
                 RendezVousDTO rdvDto = rdvDao.findById(rs.getInt("rdv_id"));
+                RendezVousDTO prestation = rdvDao.findById(rs.getInt("prestation_id"));
+                
                // Ordonnance ordonnance = ordDao.findById(rs.getInt("ordonnance_id"));
                 Consultation  consultation = new Consultation(
                 rs.getInt("id_consultation"),
@@ -170,6 +172,7 @@ public class ConsultationDao implements IDao<Consultation> {
                         rs.getInt("ordonnance_id")
                 );
                 consultation.setConstante(rs.getString("constante"));
+                consultation.setPrestation(prestation);
                 consList.add(consultation);
             }
         } catch (SQLException ex) {

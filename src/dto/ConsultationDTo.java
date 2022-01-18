@@ -26,7 +26,7 @@ public class ConsultationDTo {
     private Docteur docteur;
     private Specialite specialite;
     private Ordonnance ordonnance;
-    private Prestation prestation;
+    private RendezVousDTO prestation;
     private RendezVousDTO rdv;
     private String nomPatient;
     private String antPatient;
@@ -133,11 +133,11 @@ public class ConsultationDTo {
         this.ordonnance = ordonnance;
     }
 
-    public Prestation getPrestation() {
+    public RendezVousDTO getPrestation() {
         return prestation;
     }
 
-    public void setPrestation(Prestation prestation) {
+    public void setPrestation(RendezVousDTO prestation) {
         this.prestation = prestation;
     }
 
