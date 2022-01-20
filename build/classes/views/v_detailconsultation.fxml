@@ -60,6 +60,14 @@
                   <Font size="19.0" />
                </font>
             </JFXButton>
+            <AnchorPane fx:id="rdvPlanifierPopup" layoutY="14.0" prefHeight="383.0" prefWidth="677.0" style="-fx-background-color: #808080;">
+               <children>
+                  <JFXButton fx:id="typeRdv" layoutX="14.0" layoutY="20.0" prefHeight="25.0" prefWidth="194.0" styleClass="loginBtn" stylesheets="@styles/loginAndRegister.css" text="Type :  Radiologie" />
+                  <JFXButton fx:id="etatRDV" layoutX="506.0" layoutY="20.0" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #008000;" styleClass="loginBtn" stylesheets="@styles/loginAndRegister.css" text="En cours" />
+                  <JFXButton fx:id="typeRdv1" layoutX="229.0" layoutY="20.0" prefHeight="25.0" prefWidth="194.0" styleClass="loginBtn" stylesheets="@styles/loginAndRegister.css" text="DATE : 10-02-2022" />
+                  <JFXButton fx:id="exitRdv" layoutX="11.0" layoutY="344.0" onAction="#exitRdvAction" prefHeight="25.0" prefWidth="655.0" styleClass="ResetBtn" stylesheets="@styles/loginAndRegister.css" text="FERMER" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </children>

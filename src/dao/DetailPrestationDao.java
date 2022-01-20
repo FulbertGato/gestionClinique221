@@ -5,9 +5,15 @@
  */
 package dao;
 
+import dto.RendezVousDTO;
 import entities.DetailPrestation;
+import entities.Docteur;
+import entities.Patient;
+import entities.Prestation;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,8 +24,13 @@ import java.util.logging.Logger;
  */
 public class DetailPrestationDao implements IDao<DetailPrestation> {
     private final DataBase database= new DataBase();
+    private final PatientDao patientDao = new PatientDao();
+    private final PrestationDao speDao = new PrestationDao();
+    private final DocteurDao docDao = new DocteurDao();
+    private final RendezVousDao rdvDao= new RendezVousDao();
     
-    private final String SQL_INSERT="INSERT INTO `details_prestations` (`id_prestation`, `status`, `patient_code` , `responsable_id`) VALUES ( ?, ?, ?,?)";
+    private final String SQL_INSERT="INSERT INTO `details_prestations` (`id_presta`,`date`, `statut`, `patient_code` , `medecin_id`) VALUES ( ?, ?, ?,?,?)";
+    private final String  SQL_FIND_RDV_BY_ETAT_DATE_BY_DOCTOR= "SELECT * FROM presta WHERE  `statut` like ? OR `date` like ? AND`medecin_id` = ?  ";
 
     @Override
     public int insert(DetailPrestation ogj) {
@@ -29,8 +40,9 @@ public class DetailPrestationDao implements IDao<DetailPrestation> {
         try {
             database.getPs().setInt(1, ogj.getPrestation().getIdPrestation());
             database.getPs().setString(2, ogj.getStatus());
-            database.getPs().setString(3, ogj.getPatient().getCode());
-            database.getPs().setInt(4, ogj.getResponsable().getIdUser());
+            database.getPs().setString(3, ogj.getStatus());
+            database.getPs().setString(4, ogj.getPatient().getCode());
+            database.getPs().setInt(5, ogj.getResponsable().getIdUser());
             database.executeUpdate(SQL_INSERT);
             ResultSet rs=database.getPs().getGeneratedKeys();
             if(rs.next()){
@@ -63,5 +75,48 @@ public class DetailPrestationDao implements IDao<DetailPrestation> {
     public DetailPrestation findById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    
+    public List<DetailPrestation> findByEtatDate(String etat, String date, int id){
+        List<DetailPrestation> presList =new ArrayList();
+        try {
+
+
+            database.openConnexion();
+            database.initPrepareStatement(SQL_FIND_RDV_BY_ETAT_DATE_BY_DOCTOR);
+            database.getPs().setString(1, etat);
+            database.getPs().setString(2, date);
+            database.getPs().setInt(3, id);
+            ResultSet rs =database.executeSelect(SQL_FIND_RDV_BY_ETAT_DATE_BY_DOCTOR);
+            while(rs.next()){
+                Prestation sp = speDao.findById(rs.getInt("prestation_id"));
+                Patient pat = patientDao.findByCode(rs.getString("patient_code"));
+                System.out.print(pat);
+                Docteur doc = docDao.findById(rs.getInt("medecin_id"));
+                RendezVousDTO rdvDto = rdvDao.findById(rs.getInt("rdv_id"));
+                RendezVousDTO prestation = rdvDao.findById(rs.getInt("prestation_id"));
+                
+               // Ordonnance ordonnance = ordDao.findById(rs.getInt("ordonnance_id"));
+                DetailPrestation  presta = new DetailPrestation(
+                        rs.getInt("id_presta"),
+                        sp,
+                        pat,
+                        doc,
+                        rs.getString("date"),
+                        rdvDto,
+                        rs.getString("etat")
+                );
+                presList.add(presta);
+            }
+
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PrestationDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return presList;
+    }
+    
+    
+    
     
 }

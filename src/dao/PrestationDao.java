@@ -5,9 +5,15 @@
  */
 package dao;
 
+import dto.RendezVousDTO;
+import entities.Consultation;
+import entities.DetailPrestation;
+import entities.Docteur;
+import entities.Patient;
 import java.util.List;
 
 import entities.Prestation;
+import entities.Specialite;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,8 +27,10 @@ import java.util.logging.Logger;
  */
 public class PrestationDao implements IDao<Prestation> {
 DataBase database= new DataBase();
+    
     private final String  SQL_FIND_ALL = "SELECT * FROM `prestation`";
     private final String SQL_SELECT_PRESTATION_BY_ID =" SELECT * FROM prestation  WHERE id_prestation =? ";
+     
     @Override
     public int insert(Prestation ogj) {
         // TODO Auto-generated method stub
@@ -100,6 +108,7 @@ DataBase database= new DataBase();
        }
         return p;
     }
+    
     
     
 }

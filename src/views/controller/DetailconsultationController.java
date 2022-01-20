@@ -20,6 +20,8 @@ import entities.Prestation;
 import entities.Specialite;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -95,6 +97,20 @@ public class DetailconsultationController implements Initializable {
     private Specialite consulChoix=null;
      private  Prestation prestaChoix=null;
      private int idRdv =0;
+    @FXML
+    private AnchorPane rdvPlanifierPopup;
+    @FXML
+    private JFXButton typeRdv;
+    @FXML
+    private JFXButton etatRDV;
+    @FXML
+    private JFXButton typeRdv1;
+    @FXML
+    private JFXButton exitRdv;
+    
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-LLLL-yyyy");
+   // LocalDateTime dateN = LocalDateTime.now();
+    
     
     /**
      * Initializes the controller class.
@@ -105,6 +121,7 @@ public class DetailconsultationController implements Initializable {
         antecedant.setText(consultation.getPatient().getAntecedants());
         etatConsult.setText(consultation.getStatus());
         popuMedicament.setVisible(false);
+        popupPlanifierRdv.setVisible(false);
         popupPlanifierRdv.setVisible(false);
         ViewService.loadComboBoxService(cboxChoix);
         if(!"TERMINER".equals(consultation.getStatus())){        
@@ -203,7 +220,13 @@ public class DetailconsultationController implements Initializable {
         if(null != consultation.getPrestation()){
         
             RendezVousDTO rdvPlanifier = service.showRendezVousById(consultation.getPrestation().getIdRendezVous());
-            System.out.println(rdvPlanifier.getEtat());        
+            System.out.println(rdvPlanifier.getEtat()); 
+            popuMedicament.setVisible(false);
+            popupPlanifierRdv.setVisible(false);
+            typeRdv.setText(rdvPlanifier.getConsultOrPrestaType());
+            etatRDV.setText(rdvPlanifier.getEtat());
+            typeRdv1.setText("DATE : "+rdvPlanifier.getDateRendezVous().format(formatter));
+            popupPlanifierRdv.setVisible(true);
         } else {
             
         }
@@ -230,6 +253,7 @@ public class DetailconsultationController implements Initializable {
 
     @FXML
     private void restMedBtn(ActionEvent event) {
+        
         popuMedicament.setVisible(false);
     }
     
@@ -297,6 +321,11 @@ public class DetailconsultationController implements Initializable {
             addMedicamentBtn.setDisable(false);
             
             
+    }
+
+    @FXML
+    private void exitRdvAction(ActionEvent event) {
+        popupPlanifierRdv.setVisible(false);
     }
     
 }

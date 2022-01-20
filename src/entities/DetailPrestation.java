@@ -5,6 +5,8 @@
  */
 package entities;
 
+import dto.RendezVousDTO;
+
 /**
  *
  * @author junio
@@ -14,9 +16,11 @@ public class DetailPrestation {
     private int idDetails;
     private Prestation prestation;
     private String resultats;
+    private String date;
     private String status;
     private Patient patient;
     private Docteur docteur;
+    private  RendezVousDTO rdv;
     
     public DetailPrestation(Prestation prestation, String resultats, String status, Patient patient, Docteur responsable) {
         this.prestation = prestation;
@@ -39,6 +43,18 @@ public class DetailPrestation {
         this.status = status;
         this.patient = patient;
         this.docteur = responsable;
+    }
+
+    public DetailPrestation(int idDetails, Prestation prestation, Patient pat, Docteur doc, String date, RendezVousDTO rdvDto, String status) {
+        
+         this.idDetails = idDetails;
+        this.prestation = prestation;
+        this.date=date;
+        this.rdv = rdvDto;
+        this.status = status;
+        this.patient = patient;
+        this.docteur = doc;
+        
     }
     public int getIdDetails() {
         return idDetails;
@@ -77,4 +93,30 @@ public class DetailPrestation {
         this.idDetails = idDetails;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Docteur getDocteur() {
+        return docteur;
+    }
+
+    public void setDocteur(Docteur docteur) {
+        this.docteur = docteur;
+    }
+
+    public RendezVousDTO getRdv() {
+        return rdv;
+    }
+
+    public void setRdv(RendezVousDTO rdv) {
+        this.rdv = rdv;
+    }
+
+    
+    
 }

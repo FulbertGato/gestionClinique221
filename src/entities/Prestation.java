@@ -5,6 +5,8 @@
  */
 package entities;
 
+import dto.RendezVousDTO;
+
 /**
  *
  * @author junio
@@ -22,6 +24,8 @@ public class Prestation {
         this.idPrestation = idPrestation;
         this.libelle = libelle;
     }
+
+   
     public int getIdPrestation() {
         return idPrestation;
     }

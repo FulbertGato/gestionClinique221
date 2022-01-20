@@ -6,6 +6,8 @@
 package views.controller;
 
 
+import Service.Service;
+import entities.Docteur;
 import entities.User;
 import java.io.IOException;
 import java.net.URL;
@@ -44,7 +46,9 @@ public class DocteurDashboardController implements Initializable {
     @FXML
     private Pane contentDocteur;
      private User user = ConnexionController.getCtrl().getUser();
-      private ViewService view = new ViewService();
+     Service service  = new Service();
+     private final Docteur doc = service.docteurById(user.getIdUser());
+     private ViewService view = new ViewService();
      
     /**
      * Initializes the controller class.
@@ -61,12 +65,23 @@ public class DocteurDashboardController implements Initializable {
     @FXML
     private void handleDemandeEnCours(ActionEvent event) {
         
-     
-        try {
+        if(doc.getSpecialite().getLibelle() == "Prestation"){
+        
+            try {
+            view.loadView("v_prestation", contentDocteur);
+            } catch (IOException ex) {
+                Logger.getLogger(DocteurDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+        
+            try {
             view.loadView("v_rdvDocteur", contentDocteur);
         } catch (IOException ex) {
             Logger.getLogger(DocteurDashboardController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
+     
+        
         
         
     }

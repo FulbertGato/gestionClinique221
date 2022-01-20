@@ -164,6 +164,12 @@ public class Service implements IService{
     public List<Consultation> showAllConsultation(String etat, String date,int id) {
          return daoConsul.findByEtatDate(etat,date,id);
     }
+    @Override
+    public List<DetailPrestation> showAllPrestation(String etat, String date, int idUser) {
+        
+        return daoPrestaDetail.findByEtatDate(etat,date,idUser);
+        
+    }
 
     @Override
     public int etatConsultation(int id, String action) {
@@ -183,17 +189,7 @@ public class Service implements IService{
         return daoPresta.findAll();
     }
 
-    @Override
-    public List<Prestation> showAllPrestation(String etat) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public List<Prestation> showAllPrestation(String etat, Date date) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+  
     @Override
      public RendezVousDTO showRendezVousById(int id) {
        return daoRdv.findById(id);
@@ -292,6 +288,8 @@ public class Service implements IService{
     public int addOrdonnanceToConsultation(ConsultationDTo consultation) {
        return daoConsul.update(consultation);
     }
+
+    
     
 }
 

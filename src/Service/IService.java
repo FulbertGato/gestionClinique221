@@ -58,8 +58,7 @@ public interface IService {
     
 
     public List<Prestation> showAllPrestation();
-    public List<Prestation> showAllPrestation(String etat);
-    public List<Prestation> showAllPrestation(String etat, Date date);
+    public List<DetailPrestation> showAllPrestation(String etat, String date, int idUser);
     public DetailPrestation detail(int id);
     public int addDetailPrestation(DetailPrestation pres);
     public void resultatImport (int id);
