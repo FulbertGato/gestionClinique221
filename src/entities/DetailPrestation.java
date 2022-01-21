@@ -52,7 +52,7 @@ public class DetailPrestation {
         this.date=date;
         this.rdv = rdvDto;
         this.status = status;
-        this.patient = patient;
+        this.patient = pat;
         this.docteur = doc;
         
     }

@@ -65,7 +65,7 @@ public class DocteurDashboardController implements Initializable {
     @FXML
     private void handleDemandeEnCours(ActionEvent event) {
         
-        if(doc.getSpecialite().getLibelle() == "Prestation"){
+        if(doc.getSpecialite().getLibelle().equals("Prestation")){
         
             try {
             view.loadView("v_prestation", contentDocteur);

@@ -162,7 +162,7 @@ public class AllRendezVousController implements Initializable, IController {
                 
                 DetailPrestation dtPresta = new DetailPrestation(prestation,patient,responsable,"en cours");
                 System.out.print(dtPresta.getPatient().getCode());
-               
+               dtPresta.setRdv(rdv);
                if(service.addDetailPrestation(dtPresta) !=0){
                    
                 service.etatRendezVousSet(parseInt(txtfIdentifiant.getText()), "VALIDER");

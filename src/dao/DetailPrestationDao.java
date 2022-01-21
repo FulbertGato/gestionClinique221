@@ -29,8 +29,8 @@ public class DetailPrestationDao implements IDao<DetailPrestation> {
     private final DocteurDao docDao = new DocteurDao();
     private final RendezVousDao rdvDao= new RendezVousDao();
     
-    private final String SQL_INSERT="INSERT INTO `details_prestations` (`id_presta`,`date`, `statut`, `patient_code` , `medecin_id`) VALUES ( ?, ?, ?,?,?)";
-    private final String  SQL_FIND_RDV_BY_ETAT_DATE_BY_DOCTOR= "SELECT * FROM presta WHERE  `statut` like ? OR `date` like ? AND`medecin_id` = ?  ";
+    private final String SQL_INSERT="INSERT INTO `details_prestations` (`prestation_id`,`date`, `statut`, `patient_code` , `medecin_id`,'rdv_id') VALUES ( ?, ?, ?,?,?,?)";
+    private final String  SQL_FIND_RDV_BY_ETAT_DATE_BY_DOCTOR= "SELECT * FROM details_prestations WHERE  `statut` like ? OR `date` like ? AND`medecin_id` = ?  ";
 
     @Override
     public int insert(DetailPrestation ogj) {
@@ -39,10 +39,11 @@ public class DetailPrestationDao implements IDao<DetailPrestation> {
         database.initPrepareStatement(SQL_INSERT);
         try {
             database.getPs().setInt(1, ogj.getPrestation().getIdPrestation());
-            database.getPs().setString(2, ogj.getStatus());
+            database.getPs().setString(2, ogj.getStatus() /*ogj.getRdv().getCreateDateTime()*/);
             database.getPs().setString(3, ogj.getStatus());
             database.getPs().setString(4, ogj.getPatient().getCode());
             database.getPs().setInt(5, ogj.getResponsable().getIdUser());
+            database.getPs().setInt(6, ogj.getRdv().getIdRendezVous());
             database.executeUpdate(SQL_INSERT);
             ResultSet rs=database.getPs().getGeneratedKeys();
             if(rs.next()){
@@ -98,14 +99,15 @@ public class DetailPrestationDao implements IDao<DetailPrestation> {
                 
                // Ordonnance ordonnance = ordDao.findById(rs.getInt("ordonnance_id"));
                 DetailPrestation  presta = new DetailPrestation(
-                        rs.getInt("id_presta"),
+                        rs.getInt("id_detail"),
                         sp,
                         pat,
                         doc,
                         rs.getString("date"),
                         rdvDto,
-                        rs.getString("etat")
+                        rs.getString("statut")
                 );
+                //presta.setRdv(rdvDto);
                 presList.add(presta);
             }
 
