@@ -11,6 +11,10 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,18 +24,25 @@ import java.util.logging.Logger;
  */
 public class FileGenerator {
     
-    public static void generator(String name, String resultats){
+    public static void generator(String codePatient,String date, String resultats){
         try {
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream("F:/projet java/gestionClinique221/src/resultats/"+name+".pdf"));
-            document.open();
-            document.add(new Paragraph(resultats));
-            document.close();
-        } catch (FileNotFoundException | DocumentException ex) {
+            Path path = Paths.get("F:/projet java/gestionClinique221/src/resultats/"+codePatient);
+            Files.createDirectories(path);
+            try {
+                Document document = new Document();
+                PdfWriter.getInstance(document, new FileOutputStream("F:/projet java/gestionClinique221/src/resultats/"+codePatient+"/"+codePatient+date+".pdf"));
+                document.open();
+                document.add(new Paragraph(resultats));
+                document.close();
+            } catch (FileNotFoundException | DocumentException ex) {
+                Logger.getLogger(FileGenerator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            System.out.println("Miou verifions");
+            
+        } catch (IOException ex) {
             Logger.getLogger(FileGenerator.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        System.out.println("Miou verifions");
 
     }
 }

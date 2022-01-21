@@ -11,10 +11,10 @@ import com.jfoenix.controls.JFXComboBox;
 import dto.DetailPrestationDto;
 import entities.DetailPrestation;
 import entities.Docteur;
-import entities.Prestation;
 import entities.User;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -82,6 +82,8 @@ public class PrestationController implements Initializable {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-LLLL-yyyy");
     LocalDateTime dateN = LocalDateTime.now();
     String d =dateN.format(formatter);
+    DetailPrestationDto detailSelect;
+    private static PrestationController ctrl;
     
     
     /**
@@ -98,15 +100,22 @@ public class PrestationController implements Initializable {
         statusF.getItems().add("ANNULER");
         filtreId.setDisable(true);
         annulerId.setDisable(true);
+        ctrl = this;
     }    
 
     @FXML
     private void selectConsulatation(MouseEvent event) {
-        try {
-            view.loadView("v_DetailPrestation", contentDocteur);
-        } catch (IOException ex) {
-            Logger.getLogger(PrestationController.class.getName()).log(Level.SEVERE, null, ex);
+        detailSelect = tblvPrestation.getSelectionModel().getSelectedItem();
+        if(detailSelect != null){
+            
+            try {
+                    view.loadView("v_DetailPrestation", contentDocteur);
+                } catch (IOException ex) {
+                    Logger.getLogger(PrestationController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        
         }
+        
     }
 
     @FXML
@@ -115,18 +124,51 @@ public class PrestationController implements Initializable {
 
     @FXML
     private void dateFchoix(ActionEvent event) {
+        filtreId.setDisable(false);
     }
 
     @FXML
     private void filtrezRdv(ActionEvent event) {
+        obvCons = null;
+        LocalDate date = dateF.getValue();
+        String status = statusF.getSelectionModel().getSelectedItem();
+        if(date != null && status != null ){
+            
+            System.out.println("date et status");
+            loadTableView(status,date.format(formatter));
+            
+            
+        } else {
+                if(date != null ){
+
+                     System.out.println("date ");
+                     String statusN = "";
+                     loadTableView(statusN,date.format(formatter));
+
+                 }
+                if(status != null ){
+
+                    loadTableView(status,"");
+                     System.out.println("status");
+
+                 }
+        
+        }
+        tblvPrestation.setItems(obvCons);
+        annulerId.setDisable(false);
     }
 
     @FXML
     private void choixStatus(ActionEvent event) {
+        filtreId.setDisable(false);
     }
 
     @FXML
     private void annulerFiltre(ActionEvent event) {
+        obvCons = null;
+         loadTableView("en cours",d);
+         filtreId.setDisable(true);
+         annulerId.setDisable(true);
     }
     
     
@@ -151,4 +193,13 @@ public class PrestationController implements Initializable {
          
     }
     
+     public DetailPrestationDto getPrestationSelect(){
+    
+    return this.detailSelect;
+    
+    }
+    public static PrestationController getCtrl() {
+        
+        return ctrl;
+    }
 }

@@ -11,7 +11,7 @@
       <JFXButton fx:id="etat" layoutX="639.0" layoutY="14.0" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #008000;" styleClass="loginBtn" stylesheets="@styles/loginAndRegister.css" text="Etat : En cours" />
       <JFXButton fx:id="enregistrerBtn" layoutX="31.0" layoutY="525.0" onAction="#enregistrer" prefHeight="25.0" prefWidth="747.0" style="-fx-background-color: #008000;" styleClass="loginBtn" stylesheets="@styles/loginAndRegister.css" text="Enregistrer " />
       <JFXButton layoutX="75.0" layoutY="373.0" onAction="#TerminatePrestation" prefHeight="102.0" prefWidth="301.0" styleClass="loginBtn" stylesheets="@styles/loginAndRegister.css" text="MARQUEZ TERMINEZ" />
-      <JFXButton fx:id="antecedant1" layoutX="419.0" layoutY="373.0" prefHeight="102.0" prefWidth="317.0" styleClass="ResetBtn" stylesheets="@styles/loginAndRegister.css" text="ANNULER" />
+      <JFXButton fx:id="annulerPrestation" layoutX="419.0" layoutY="373.0" prefHeight="102.0" prefWidth="317.0" styleClass="ResetBtn" stylesheets="@styles/loginAndRegister.css" text="ANNULER" />
       <JFXButton fx:id="resultatsBtn" layoutX="431.0" layoutY="14.0" onAction="#ImportResultat" prefHeight="25.0" prefWidth="194.0" styleClass="loginBtn" stylesheets="@styles/loginAndRegister.css" text="Resultat" />
       <JFXTextArea fx:id="resultatText" layoutX="83.0" layoutY="125.0" prefHeight="225.0" prefWidth="657.0" promptText="Entrez les resultats" />
    </children>

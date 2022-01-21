@@ -47,7 +47,7 @@ public class DetailPrestationValidationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        FileGenerator.generator("test","test paragraphe");
+        FileGenerator.generator("codepatient","date","resultat test maman");
     }    
 
     @FXML
