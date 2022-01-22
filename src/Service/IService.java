@@ -5,6 +5,7 @@
  */
 package Service;
 
+import dto.DetailPrestationDto;
 import dto.RendezVousDTO;
 import java.sql.Date;
 import java.util.List;
@@ -61,6 +62,7 @@ public interface IService {
     public List<DetailPrestation> showAllPrestation(String etat, String date, int idUser);
     public DetailPrestation detail(int id);
     public int addDetailPrestation(DetailPrestation pres);
+    public int addDetailPrestationResultat(DetailPrestationDto pres);
     public void resultatImport (int id);
 
     public Patient searchPatientByCode(String code);

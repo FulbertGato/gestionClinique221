@@ -5,6 +5,7 @@
  */
 package dao;
 
+import dto.DetailPrestationDto;
 import dto.RendezVousDTO;
 import entities.DetailPrestation;
 import entities.Docteur;
@@ -31,6 +32,7 @@ public class DetailPrestationDao implements IDao<DetailPrestation> {
     
     private final String SQL_INSERT="INSERT INTO `details_prestations` (`prestation_id`,`date`, `statut`, `patient_code` , `medecin_id`,'rdv_id') VALUES ( ?, ?, ?,?,?,?)";
     private final String  SQL_FIND_RDV_BY_ETAT_DATE_BY_DOCTOR= "SELECT * FROM details_prestations WHERE  `statut` like ? OR `date` like ? AND`medecin_id` = ?  ";
+    private final String  SQL_UPDATE_DETAIL_PRRESTATION="UPDATE `details_prestations` SET `statut` = ?,`resultat` = ?  WHERE `details_prestations`.`id_detail` = ?";
 
     @Override
     public int insert(DetailPrestation ogj) {
@@ -107,7 +109,7 @@ public class DetailPrestationDao implements IDao<DetailPrestation> {
                         rdvDto,
                         rs.getString("statut")
                 );
-                //presta.setRdv(rdvDto);
+                presta.setResultats(rs.getString("resultat"));
                 presList.add(presta);
             }
 
@@ -116,6 +118,23 @@ public class DetailPrestationDao implements IDao<DetailPrestation> {
             Logger.getLogger(PrestationDao.class.getName()).log(Level.SEVERE, null, ex);
         }
          return presList;
+    }
+
+    public int update(DetailPrestationDto pres) {
+        int idUpdate=0;
+        try {
+            
+            database.openConnexion();
+            database.initPrepareStatement(SQL_UPDATE_DETAIL_PRRESTATION);
+            database.getPs().setString(1, pres.getStatus());
+            database.getPs().setString(2, pres.getResultats());
+            database.getPs().setInt(3, pres.getIdDetails());
+            idUpdate=database.executeUpdate(SQL_UPDATE_DETAIL_PRRESTATION);
+                
+        } catch (SQLException ex) {
+            Logger.getLogger(DetailPrestationDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idUpdate;
     }
     
     

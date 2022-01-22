@@ -10,6 +10,7 @@ import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
  import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -26,6 +27,8 @@ public class Main extends Application {
         
         Scene scene = new Scene(root);
         stage.initStyle(StageStyle.UNDECORATED);
+        Image image = new Image("/views/image/logo.jpg");
+        stage.getIcons().add(image);
         stage.setScene(scene);
       //  MetaData.parent=root;
         stage.show();

@@ -29,6 +29,7 @@ import dao.RoleDao;
 import dao.SpecialiteDao;
 import dao.UserDao;
 import dto.ConsultationDTo;
+import dto.DetailPrestationDto;
 import dto.RendezVousDTO;
 import entities.Medicament;
 import entities.Ordonnance;
@@ -182,7 +183,11 @@ public class Service implements IService{
     public int addDetailPrestation(DetailPrestation pres) {
        return daoPrestaDetail.insert(pres);
     }
-
+    @Override
+    public int addDetailPrestationResultat(DetailPrestationDto pres){
+    
+    return daoPrestaDetail.update(pres);
+    }
     @Override
     public List<Prestation> showAllPrestation() {
         
