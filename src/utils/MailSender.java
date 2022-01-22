@@ -64,7 +64,7 @@ public class MailSender {
             message.setFrom(new InternetAddress(myAccountEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
             message.setSubject(subjet);
-            String htmlCode = "<h1>"+body+"</h1> >";
+            String htmlCode = "<h1>"+body+"</h1>";
             message.setContent(htmlCode, "text/html");
             return message;
             
