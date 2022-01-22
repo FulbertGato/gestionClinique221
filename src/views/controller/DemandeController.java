@@ -31,6 +31,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import utils.MailSender;
 import utils.ViewService;
 
 /**
@@ -145,6 +146,11 @@ public class DemandeController implements Initializable {
                 rdv.setPatient(patient);
                 rdv.setSpecialite(sper);
                 service.addRendezVous(rdv);
+                try {
+                        MailSender.sendMail(patient.getLogin(),"DEMANDE DE RENDEZ VOUS EN COURS","Bonjour "+patient.getNomComplet()+" Votre rendez vous est bien prise en compte");
+                    } catch (Exception ex) {
+                        Logger.getLogger(DemandeController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 tankView();
             }
             else if(sper ==null ){
@@ -157,7 +163,14 @@ public class DemandeController implements Initializable {
                 rdv.setPatient(patient);
                 rdv.setPrestation(presta);
                 service.addRendezVous(rdv);
+                try {
+                       MailSender.sendMail(patient.getLogin(),"DEMANDE DE RENDEZ VOUS EN COURS","Bonjour "+patient.getNomComplet()+" Votre rendez vous est bien prise en compte");
+                    } catch (Exception ex) {
+                        Logger.getLogger(DemandeController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 tankView();
+                
+                
             
             }
             else{

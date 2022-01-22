@@ -30,7 +30,7 @@ public class DetailPrestationDao implements IDao<DetailPrestation> {
     private final DocteurDao docDao = new DocteurDao();
     private final RendezVousDao rdvDao= new RendezVousDao();
     
-    private final String SQL_INSERT="INSERT INTO `details_prestations` (`prestation_id`,`date`, `statut`, `patient_code` , `medecin_id`,'rdv_id') VALUES ( ?, ?, ?,?,?,?)";
+    private final String SQL_INSERT="INSERT INTO `details_prestations` (`prestation_id`,`date`, `statut`, `patient_code` , `medecin_id`,`rdv_id`) VALUES ( ?, ?, ?,?,?,?)";
     private final String  SQL_FIND_RDV_BY_ETAT_DATE_BY_DOCTOR= "SELECT * FROM details_prestations WHERE  `statut` like ? OR `date` like ? AND`medecin_id` = ?  ";
     private final String  SQL_UPDATE_DETAIL_PRRESTATION="UPDATE `details_prestations` SET `statut` = ?,`resultat` = ?  WHERE `details_prestations`.`id_detail` = ?";
 

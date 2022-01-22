@@ -18,6 +18,8 @@ import static java.lang.Integer.parseInt;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,6 +32,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import utils.MailSender;
 
 /**
  * FXML Controller class
@@ -130,6 +133,7 @@ public class AllRendezVousController implements Initializable, IController {
                       }
 
                  } 
+                    
                     loadTableView();
              } 
     
@@ -155,12 +159,12 @@ public class AllRendezVousController implements Initializable, IController {
            Patient patient = rdv.getPatient();
            System.out.println(patient.getCode());
             
-            
+            Docteur docteur = null;
             if("PRESTATION".equals(rdv.getConsultOrPresta())){
                 Prestation prestation = rdv.getPrestation();
-                Docteur responsable = cboRealisatorPrestation.getSelectionModel().getSelectedItem(); 
+                 docteur = cboRealisatorPrestation.getSelectionModel().getSelectedItem(); 
                 
-                DetailPrestation dtPresta = new DetailPrestation(prestation,patient,responsable,"en cours");
+                DetailPrestation dtPresta = new DetailPrestation(prestation,patient,docteur,"en cours");
                 System.out.print(dtPresta.getPatient().getCode());
                dtPresta.setRdv(rdv);
                if(service.addDetailPrestation(dtPresta) !=0){
@@ -171,20 +175,24 @@ public class AllRendezVousController implements Initializable, IController {
             }else if("CONSULTATION".equals(rdv.getConsultOrPresta())){
             
                 Specialite specialite = rdv.getSpecialite();
-                Docteur docteur = cboRealisatorConsultation.getSelectionModel().getSelectedItem();
+                docteur = cboRealisatorConsultation.getSelectionModel().getSelectedItem();
                // System.out.println(docteur.getIdUser());
                // System.out.println(docteur.getSpecialite());
                Consultation consultation = new Consultation(specialite,patient,docteur,rdv.getDateRendezVous(),rdv,"en cours");
-               
                System.out.println(consultation.getDocteur().getIdUser());
                if(service.addConsultation(consultation) !=0){
-                   
                 service.etatRendezVousSet(parseInt(txtfIdentifiant.getText()), "VALIDER");
                };
                 
             
                 
             
+            }
+            try {
+            MailSender.sendMail(rdv.getPatient().getLogin(),"DEMANDE DE RENDEZ VALIDER","Bonjour "+rdv.getPatient().getNomComplet()+" Votre rendez vous est valider");
+            MailSender.sendMail(docteur.getLogin(),"Vous avez une nouvelle demande","Bonjour "+docteur.getNomComplet()+" Votre rendez vous est valider");
+            } catch (Exception ex) {
+                Logger.getLogger(DemandeController.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             
@@ -193,6 +201,7 @@ public class AllRendezVousController implements Initializable, IController {
         
         
         }
+        
        loadTableView();
         
     }
