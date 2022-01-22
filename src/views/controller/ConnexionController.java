@@ -140,6 +140,22 @@ public class ConnexionController implements Initializable {
                     Logger.getLogger(ConnexionController.class.getName()).log(Level.SEVERE, null, ex);
                 }
               break;
+            case "ROLE_ADMIN":
+              try {
+                  System.out.println(user.getRole());
+                    this.txtError.getScene().getWindow().hide();
+                    AnchorPane root = null;
+                   root = FXMLLoader.load(getClass().getResource("/views/AdministratorDashboard.fxml"));
+                 // root = FXMLLoader.load(getClass().getResource("/views/dashboard.fxml"));
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.initStyle(StageStyle.UNDECORATED);
+                    stage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(ConnexionController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              break;
             
             default:
               // code block

@@ -33,6 +33,7 @@ import dto.DetailPrestationDto;
 import dto.RendezVousDTO;
 import entities.Medicament;
 import entities.Ordonnance;
+import java.util.ArrayList;
 /**
  *
  * @author junio
@@ -293,6 +294,8 @@ public class Service implements IService{
     public int addOrdonnanceToConsultation(ConsultationDTo consultation) {
        return daoConsul.update(consultation);
     }
+
+ 
 
     
     

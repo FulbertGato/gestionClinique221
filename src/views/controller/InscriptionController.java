@@ -26,6 +26,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import utils.MailSender;
 
 /**
  * FXML Controller class
@@ -120,6 +121,12 @@ public class InscriptionController implements Initializable {
             int id = service.addPatient(patient);
           
            if(id>0){
+            try {
+ 
+                MailSender.sendMail(patient.getLogin(),"Votre compte est cree sur Clinique 221","Bonjour "+patient.getNomComplet()+" Votre email: "+patient.getLogin()+" <br> votre password : "+patient.getPassword()); 
+               } catch (Exception ex) {
+                    Logger.getLogger(InscriptionController.class.getName()).log(Level.SEVERE, null, ex);
+                }
                
             try {
             this.txtError.getScene().getWindow().hide();

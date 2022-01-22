@@ -42,6 +42,11 @@ public class Role {
     public void setIdRole(int idRole) {
         this.idRole = idRole;
     }
+
+    @Override
+    public String toString() {
+        return libelle;
+    }
     
 
     

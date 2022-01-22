@@ -16,6 +16,10 @@ public class User {
     protected String password;
     protected Role role;
 
+    public User() {
+        
+    }
+
     public int getIdUser() {
         return idUser;
     }
